@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ReportId{}
+func init() {
+	recaser.RegisterResourceId(&ReportId{})
+}
+
+var _ resourceids.ResourceId = &ReportId{}
 
 // ReportId is a struct representing the Resource ID for a Report
 type ReportId struct {
@@ -34,7 +39,7 @@ func NewReportID(subscriptionId string, resourceGroupName string, automationAcco
 
 // ParseReportID parses 'input' into a ReportId
 func ParseReportID(input string) (*ReportId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ReportId{})
+	parser := resourceids.NewParserFromResourceIdType(&ReportId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseReportID(input string) (*ReportId, error) {
 // ParseReportIDInsensitively parses 'input' case-insensitively into a ReportId
 // note: this method should only be used for API response data and not user input
 func ParseReportIDInsensitively(input string) (*ReportId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ReportId{})
+	parser := resourceids.NewParserFromResourceIdType(&ReportId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

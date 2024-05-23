@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = DiagnosticAnalysisId{}
+func init() {
+	recaser.RegisterResourceId(&DiagnosticAnalysisId{})
+}
+
+var _ resourceids.ResourceId = &DiagnosticAnalysisId{}
 
 // DiagnosticAnalysisId is a struct representing the Resource ID for a Diagnostic Analysis
 type DiagnosticAnalysisId struct {
@@ -36,7 +41,7 @@ func NewDiagnosticAnalysisID(subscriptionId string, resourceGroupName string, si
 
 // ParseDiagnosticAnalysisID parses 'input' into a DiagnosticAnalysisId
 func ParseDiagnosticAnalysisID(input string) (*DiagnosticAnalysisId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DiagnosticAnalysisId{})
+	parser := resourceids.NewParserFromResourceIdType(&DiagnosticAnalysisId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -53,7 +58,7 @@ func ParseDiagnosticAnalysisID(input string) (*DiagnosticAnalysisId, error) {
 // ParseDiagnosticAnalysisIDInsensitively parses 'input' case-insensitively into a DiagnosticAnalysisId
 // note: this method should only be used for API response data and not user input
 func ParseDiagnosticAnalysisIDInsensitively(input string) (*DiagnosticAnalysisId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DiagnosticAnalysisId{})
+	parser := resourceids.NewParserFromResourceIdType(&DiagnosticAnalysisId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

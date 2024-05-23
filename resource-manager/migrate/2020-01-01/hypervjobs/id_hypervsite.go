@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = HyperVSiteId{}
+func init() {
+	recaser.RegisterResourceId(&HyperVSiteId{})
+}
+
+var _ resourceids.ResourceId = &HyperVSiteId{}
 
 // HyperVSiteId is a struct representing the Resource ID for a Hyper V Site
 type HyperVSiteId struct {
@@ -30,7 +35,7 @@ func NewHyperVSiteID(subscriptionId string, resourceGroupName string, hyperVSite
 
 // ParseHyperVSiteID parses 'input' into a HyperVSiteId
 func ParseHyperVSiteID(input string) (*HyperVSiteId, error) {
-	parser := resourceids.NewParserFromResourceIdType(HyperVSiteId{})
+	parser := resourceids.NewParserFromResourceIdType(&HyperVSiteId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseHyperVSiteID(input string) (*HyperVSiteId, error) {
 // ParseHyperVSiteIDInsensitively parses 'input' case-insensitively into a HyperVSiteId
 // note: this method should only be used for API response data and not user input
 func ParseHyperVSiteIDInsensitively(input string) (*HyperVSiteId, error) {
-	parser := resourceids.NewParserFromResourceIdType(HyperVSiteId{})
+	parser := resourceids.NewParserFromResourceIdType(&HyperVSiteId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

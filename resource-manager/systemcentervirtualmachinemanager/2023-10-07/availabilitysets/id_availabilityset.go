@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = AvailabilitySetId{}
+func init() {
+	recaser.RegisterResourceId(&AvailabilitySetId{})
+}
+
+var _ resourceids.ResourceId = &AvailabilitySetId{}
 
 // AvailabilitySetId is a struct representing the Resource ID for a Availability Set
 type AvailabilitySetId struct {
@@ -30,7 +35,7 @@ func NewAvailabilitySetID(subscriptionId string, resourceGroupName string, avail
 
 // ParseAvailabilitySetID parses 'input' into a AvailabilitySetId
 func ParseAvailabilitySetID(input string) (*AvailabilitySetId, error) {
-	parser := resourceids.NewParserFromResourceIdType(AvailabilitySetId{})
+	parser := resourceids.NewParserFromResourceIdType(&AvailabilitySetId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseAvailabilitySetID(input string) (*AvailabilitySetId, error) {
 // ParseAvailabilitySetIDInsensitively parses 'input' case-insensitively into a AvailabilitySetId
 // note: this method should only be used for API response data and not user input
 func ParseAvailabilitySetIDInsensitively(input string) (*AvailabilitySetId, error) {
-	parser := resourceids.NewParserFromResourceIdType(AvailabilitySetId{})
+	parser := resourceids.NewParserFromResourceIdType(&AvailabilitySetId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

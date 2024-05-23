@@ -8,34 +8,35 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/hashicorp/go-azure-sdk/sdk/auth"
 	"github.com/hashicorp/go-azure-sdk/sdk/client"
 	"github.com/hashicorp/go-azure-sdk/sdk/client/dataplane"
 )
+
+var _ client.BaseClient = &Client{}
 
 var storageDefaultRetryFunctions = []client.RequestRetryFunc{
 	// TODO: stuff n tings
 }
 
-type BaseClient struct {
-	Client *dataplane.Client
+type Client struct {
+	*dataplane.Client
 }
 
-func NewBaseClient(baseUri string, componentName, apiVersion string) (*BaseClient, error) {
+func NewStorageClient(baseUri string, componentName, apiVersion string) (*Client, error) {
 	// NOTE: both the domain name _and_ the domain format can change entirely depending on the type of storage account being used
 	// when provisioned in an edge zone, and when AzureDNSZone is used, as such we require the baseUri is provided here
-	return &BaseClient{
+	return &Client{
 		Client: dataplane.NewDataPlaneClient(baseUri, fmt.Sprintf("storage/%s", componentName), apiVersion),
 	}, nil
 }
 
-func (c *BaseClient) NewRequest(ctx context.Context, input client.RequestOptions) (*client.Request, error) {
+func (c *Client) NewRequest(ctx context.Context, input client.RequestOptions) (*client.Request, error) {
 	// TODO move these validations to base client method
 	if _, ok := ctx.Deadline(); !ok {
-		return nil, fmt.Errorf("the context used must have a deadline attached for polling purposes, but got no deadline")
+		return nil, fmt.Errorf("internal-error: the context used must have a deadline attached for polling purposes, but got no deadline")
 	}
 	if err := input.Validate(); err != nil {
-		return nil, fmt.Errorf("pre-validating request payload: %+v", err)
+		return nil, fmt.Errorf("internal-error: pre-validating request payload: %+v", err)
 	}
 
 	req, err := c.Client.Client.NewRequest(ctx, input)
@@ -65,20 +66,10 @@ func (c *BaseClient) NewRequest(ctx context.Context, input client.RequestOptions
 	}
 
 	req.URL.RawQuery = query.Encode()
-	req.RetryFunc = client.RequestRetryAny(storageDefaultRetryFunctions...)
+
+	req.CustomErrorParser = &ErrorParser{}
+	req.RetryFunc = client.RequestRetryAny(append(storageDefaultRetryFunctions, input.RetryFunc)...)
 	req.ValidStatusCodes = input.ExpectedStatusCodes
 
 	return req, nil
-}
-
-func (c *BaseClient) Execute(ctx context.Context, req *client.Request) (*client.Response, error) {
-	return c.Client.Execute(ctx, req)
-}
-
-func (c *BaseClient) ExecutePaged(ctx context.Context, req *client.Request) (*client.Response, error) {
-	return c.Client.ExecutePaged(ctx, req)
-}
-
-func (c *BaseClient) WithAuthorizer(auth auth.Authorizer) {
-	c.Client.Client.Authorizer = auth
 }

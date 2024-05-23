@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = BmcKeySetId{}
+func init() {
+	recaser.RegisterResourceId(&BmcKeySetId{})
+}
+
+var _ resourceids.ResourceId = &BmcKeySetId{}
 
 // BmcKeySetId is a struct representing the Resource ID for a Bmc Key Set
 type BmcKeySetId struct {
@@ -32,7 +37,7 @@ func NewBmcKeySetID(subscriptionId string, resourceGroupName string, clusterName
 
 // ParseBmcKeySetID parses 'input' into a BmcKeySetId
 func ParseBmcKeySetID(input string) (*BmcKeySetId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BmcKeySetId{})
+	parser := resourceids.NewParserFromResourceIdType(&BmcKeySetId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseBmcKeySetID(input string) (*BmcKeySetId, error) {
 // ParseBmcKeySetIDInsensitively parses 'input' case-insensitively into a BmcKeySetId
 // note: this method should only be used for API response data and not user input
 func ParseBmcKeySetIDInsensitively(input string) (*BmcKeySetId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BmcKeySetId{})
+	parser := resourceids.NewParserFromResourceIdType(&BmcKeySetId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

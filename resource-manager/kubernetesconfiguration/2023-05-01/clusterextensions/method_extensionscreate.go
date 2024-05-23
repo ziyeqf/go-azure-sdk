@@ -18,6 +18,7 @@ type ExtensionsCreateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *Extension
 }
 
 // ExtensionsCreate ...

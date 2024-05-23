@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = BackupInstanceId{}
+func init() {
+	recaser.RegisterResourceId(&BackupInstanceId{})
+}
+
+var _ resourceids.ResourceId = &BackupInstanceId{}
 
 // BackupInstanceId is a struct representing the Resource ID for a Backup Instance
 type BackupInstanceId struct {
@@ -32,7 +37,7 @@ func NewBackupInstanceID(subscriptionId string, resourceGroupName string, backup
 
 // ParseBackupInstanceID parses 'input' into a BackupInstanceId
 func ParseBackupInstanceID(input string) (*BackupInstanceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BackupInstanceId{})
+	parser := resourceids.NewParserFromResourceIdType(&BackupInstanceId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseBackupInstanceID(input string) (*BackupInstanceId, error) {
 // ParseBackupInstanceIDInsensitively parses 'input' case-insensitively into a BackupInstanceId
 // note: this method should only be used for API response data and not user input
 func ParseBackupInstanceIDInsensitively(input string) (*BackupInstanceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BackupInstanceId{})
+	parser := resourceids.NewParserFromResourceIdType(&BackupInstanceId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

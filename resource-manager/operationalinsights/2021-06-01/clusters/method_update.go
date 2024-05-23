@@ -18,6 +18,7 @@ type UpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *Cluster
 }
 
 // Update ...
@@ -25,6 +26,7 @@ func (c ClustersClient) Update(ctx context.Context, id ClusterId, input ClusterP
 	opts := client.RequestOptions{
 		ContentType: "application/json; charset=utf-8",
 		ExpectedStatusCodes: []int{
+			http.StatusAccepted,
 			http.StatusOK,
 		},
 		HttpMethod: http.MethodPatch,

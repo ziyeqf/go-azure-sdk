@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedMarketplaceRegistrationDefinitionId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedMarketplaceRegistrationDefinitionId{})
+}
+
+var _ resourceids.ResourceId = &ScopedMarketplaceRegistrationDefinitionId{}
 
 // ScopedMarketplaceRegistrationDefinitionId is a struct representing the Resource ID for a Scoped Marketplace Registration Definition
 type ScopedMarketplaceRegistrationDefinitionId struct {
@@ -28,7 +33,7 @@ func NewScopedMarketplaceRegistrationDefinitionID(scope string, marketplaceIdent
 
 // ParseScopedMarketplaceRegistrationDefinitionID parses 'input' into a ScopedMarketplaceRegistrationDefinitionId
 func ParseScopedMarketplaceRegistrationDefinitionID(input string) (*ScopedMarketplaceRegistrationDefinitionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedMarketplaceRegistrationDefinitionId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedMarketplaceRegistrationDefinitionId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedMarketplaceRegistrationDefinitionID(input string) (*ScopedMarket
 // ParseScopedMarketplaceRegistrationDefinitionIDInsensitively parses 'input' case-insensitively into a ScopedMarketplaceRegistrationDefinitionId
 // note: this method should only be used for API response data and not user input
 func ParseScopedMarketplaceRegistrationDefinitionIDInsensitively(input string) (*ScopedMarketplaceRegistrationDefinitionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedMarketplaceRegistrationDefinitionId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedMarketplaceRegistrationDefinitionId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

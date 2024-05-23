@@ -18,6 +18,7 @@ type InstallSiteExtensionOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *SiteExtensionInfo
 }
 
 // InstallSiteExtension ...

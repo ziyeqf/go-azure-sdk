@@ -78,7 +78,7 @@ func TestAccClient(t *testing.T) {
 	c := &testClient{
 		Client: NewClient(*endpoint, "example", "2020-01-01"),
 	}
-	c.Authorizer = conn.Authorizer
+	c.SetAuthorizer(conn.Authorizer)
 
 	path := fmt.Sprintf("/v1.0/servicePrincipals/%s", conn.Claims.ObjectId)
 	reqOpts := RequestOptions{
@@ -128,7 +128,7 @@ func TestAccClient_Paged(t *testing.T) {
 	c := &testClient{
 		Client: NewClient(*endpoint, "example", "2020-01-01"),
 	}
-	c.Authorizer = conn.Authorizer
+	c.SetAuthorizer(conn.Authorizer)
 
 	path := "/v1.0/applications"
 	reqOpts := RequestOptions{
@@ -192,7 +192,7 @@ func TestAccClient_CustomPaged(t *testing.T) {
 	c := &testClient{
 		Client: NewClient(*endpoint, "example", "2020-01-01"),
 	}
-	c.Authorizer = conn.Authorizer
+	c.SetAuthorizer(conn.Authorizer)
 
 	path := "/v1.0/applications"
 	reqOpts := RequestOptions{
@@ -355,12 +355,12 @@ func TestUnmarshalByteStreamAndPowerShell(t *testing.T) {
 				Body: io.NopCloser(bytes.NewReader(expected)),
 			},
 		}
-		var unmarshaled = pointer.To(make([]byte, 0))
+		var unmarshaled = make([]byte, 0)
 		if err := r.Unmarshal(&unmarshaled); err != nil {
 			t.Fatalf("unmarshaling: %+v", err)
 		}
-		if string(*unmarshaled) != "you serve butter" {
-			t.Fatalf("unexpected difference in decoded objects. Expected %q\n\nGot: %q", string(expected), string(*unmarshaled))
+		if string(unmarshaled) != "you serve butter" {
+			t.Fatalf("unexpected difference in decoded objects. Expected %q\n\nGot: %q", string(expected), string(unmarshaled))
 		}
 	}
 }
@@ -373,7 +373,9 @@ func TestUnmarshalByteStreamAndPowerShellWithModel(t *testing.T) {
 	var respModel = struct {
 		HttpResponse *http.Response
 		Model        *[]byte
-	}{}
+	}{
+		Model: pointer.To(make([]byte, 0)),
+	}
 	expected := []byte("you serve butter")
 	for _, contentType := range contentTypes {
 		r := &Response{
@@ -384,7 +386,7 @@ func TestUnmarshalByteStreamAndPowerShellWithModel(t *testing.T) {
 				Body: io.NopCloser(bytes.NewReader(expected)),
 			},
 		}
-		if err := r.Unmarshal(&respModel.Model); err != nil {
+		if err := r.Unmarshal(respModel.Model); err != nil {
 			t.Fatalf("unmarshaling: %+v", err)
 		}
 		if string(*respModel.Model) != "you serve butter" {
@@ -466,6 +468,38 @@ func TestUnmarshalXml(t *testing.T) {
 		if !reflect.DeepEqual(expected, unmarshaled) {
 			t.Fatalf("unexpected difference in decoded objects. Expected %q\n\nGot: %+v", expected, unmarshaled)
 		}
+	}
+}
+
+func TestUnmarshalNilHeaders(t *testing.T) {
+	expected := []byte("any payload")
+	r := &Response{
+		Response: &http.Response{
+			Header: nil,
+			Body:   io.NopCloser(bytes.NewReader(expected)),
+		},
+	}
+	var unmarshaled []byte
+	if err := r.Unmarshal(&unmarshaled); err != nil {
+		if err.Error() != "could not determine Content-Type for response" {
+			t.Fatalf("unexpected error when unmarshaling: %+v", err)
+		}
+	} else {
+		t.Fatalf("expected an error but got no error")
+	}
+}
+
+func TestUnmarshalNilResponse(t *testing.T) {
+	r := &Response{
+		Response: nil,
+	}
+	var unmarshaled = make([]byte, 0)
+	if err := r.Unmarshal(&unmarshaled); err != nil {
+		if err.Error() != "could not unmarshal as the HTTP response was nil" {
+			t.Fatalf("unexpected error when unmarshaling: %+v", err)
+		}
+	} else {
+		t.Fatalf("expected an error but got no error")
 	}
 }
 

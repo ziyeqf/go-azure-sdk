@@ -18,6 +18,7 @@ type MetricsConfigurationsUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *ClusterMetricsConfiguration
 }
 
 // MetricsConfigurationsUpdate ...

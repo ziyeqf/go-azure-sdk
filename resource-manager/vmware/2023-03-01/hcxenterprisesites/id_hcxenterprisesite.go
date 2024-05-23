@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = HcxEnterpriseSiteId{}
+func init() {
+	recaser.RegisterResourceId(&HcxEnterpriseSiteId{})
+}
+
+var _ resourceids.ResourceId = &HcxEnterpriseSiteId{}
 
 // HcxEnterpriseSiteId is a struct representing the Resource ID for a Hcx Enterprise Site
 type HcxEnterpriseSiteId struct {
@@ -32,7 +37,7 @@ func NewHcxEnterpriseSiteID(subscriptionId string, resourceGroupName string, pri
 
 // ParseHcxEnterpriseSiteID parses 'input' into a HcxEnterpriseSiteId
 func ParseHcxEnterpriseSiteID(input string) (*HcxEnterpriseSiteId, error) {
-	parser := resourceids.NewParserFromResourceIdType(HcxEnterpriseSiteId{})
+	parser := resourceids.NewParserFromResourceIdType(&HcxEnterpriseSiteId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseHcxEnterpriseSiteID(input string) (*HcxEnterpriseSiteId, error) {
 // ParseHcxEnterpriseSiteIDInsensitively parses 'input' case-insensitively into a HcxEnterpriseSiteId
 // note: this method should only be used for API response data and not user input
 func ParseHcxEnterpriseSiteIDInsensitively(input string) (*HcxEnterpriseSiteId, error) {
-	parser := resourceids.NewParserFromResourceIdType(HcxEnterpriseSiteId{})
+	parser := resourceids.NewParserFromResourceIdType(&HcxEnterpriseSiteId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

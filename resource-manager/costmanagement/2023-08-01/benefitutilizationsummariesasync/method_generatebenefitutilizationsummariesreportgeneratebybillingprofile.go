@@ -18,6 +18,7 @@ type GenerateBenefitUtilizationSummariesReportGenerateByBillingProfileOperationR
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *BenefitUtilizationSummariesOperationStatus
 }
 
 // GenerateBenefitUtilizationSummariesReportGenerateByBillingProfile ...

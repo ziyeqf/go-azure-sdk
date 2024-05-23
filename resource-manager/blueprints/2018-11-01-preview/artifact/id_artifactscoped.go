@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ArtifactScopedId{}
+func init() {
+	recaser.RegisterResourceId(&ArtifactScopedId{})
+}
+
+var _ resourceids.ResourceId = &ArtifactScopedId{}
 
 // ArtifactScopedId is a struct representing the Resource ID for a Artifact Scoped
 type ArtifactScopedId struct {
@@ -30,7 +35,7 @@ func NewArtifactScopedID(resourceScope string, blueprintName string, artifactNam
 
 // ParseArtifactScopedID parses 'input' into a ArtifactScopedId
 func ParseArtifactScopedID(input string) (*ArtifactScopedId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ArtifactScopedId{})
+	parser := resourceids.NewParserFromResourceIdType(&ArtifactScopedId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseArtifactScopedID(input string) (*ArtifactScopedId, error) {
 // ParseArtifactScopedIDInsensitively parses 'input' case-insensitively into a ArtifactScopedId
 // note: this method should only be used for API response data and not user input
 func ParseArtifactScopedIDInsensitively(input string) (*ArtifactScopedId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ArtifactScopedId{})
+	parser := resourceids.NewParserFromResourceIdType(&ArtifactScopedId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

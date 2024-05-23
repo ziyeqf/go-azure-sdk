@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ContentItemId{}
+func init() {
+	recaser.RegisterResourceId(&ContentItemId{})
+}
+
+var _ resourceids.ResourceId = &ContentItemId{}
 
 // ContentItemId is a struct representing the Resource ID for a Content Item
 type ContentItemId struct {
@@ -34,7 +39,7 @@ func NewContentItemID(subscriptionId string, resourceGroupName string, serviceNa
 
 // ParseContentItemID parses 'input' into a ContentItemId
 func ParseContentItemID(input string) (*ContentItemId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ContentItemId{})
+	parser := resourceids.NewParserFromResourceIdType(&ContentItemId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseContentItemID(input string) (*ContentItemId, error) {
 // ParseContentItemIDInsensitively parses 'input' case-insensitively into a ContentItemId
 // note: this method should only be used for API response data and not user input
 func ParseContentItemIDInsensitively(input string) (*ContentItemId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ContentItemId{})
+	parser := resourceids.NewParserFromResourceIdType(&ContentItemId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -18,6 +18,7 @@ type StartWebSiteNetworkTraceOperationSlotOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *[]NetworkTrace
 }
 
 type StartWebSiteNetworkTraceOperationSlotOperationOptions struct {

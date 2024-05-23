@@ -18,6 +18,7 @@ type ListPublishingCredentialsSlotOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *User
 }
 
 // ListPublishingCredentialsSlot ...

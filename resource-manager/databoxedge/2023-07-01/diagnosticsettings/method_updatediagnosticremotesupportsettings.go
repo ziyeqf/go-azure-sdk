@@ -18,6 +18,7 @@ type UpdateDiagnosticRemoteSupportSettingsOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *DiagnosticRemoteSupportSettings
 }
 
 // UpdateDiagnosticRemoteSupportSettings ...

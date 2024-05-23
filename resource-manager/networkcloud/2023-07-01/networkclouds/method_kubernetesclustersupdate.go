@@ -18,6 +18,7 @@ type KubernetesClustersUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *KubernetesCluster
 }
 
 // KubernetesClustersUpdate ...

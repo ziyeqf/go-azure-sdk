@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = SlotVirtualNetworkConnectionGatewayId{}
+func init() {
+	recaser.RegisterResourceId(&SlotVirtualNetworkConnectionGatewayId{})
+}
+
+var _ resourceids.ResourceId = &SlotVirtualNetworkConnectionGatewayId{}
 
 // SlotVirtualNetworkConnectionGatewayId is a struct representing the Resource ID for a Slot Virtual Network Connection Gateway
 type SlotVirtualNetworkConnectionGatewayId struct {
@@ -36,7 +41,7 @@ func NewSlotVirtualNetworkConnectionGatewayID(subscriptionId string, resourceGro
 
 // ParseSlotVirtualNetworkConnectionGatewayID parses 'input' into a SlotVirtualNetworkConnectionGatewayId
 func ParseSlotVirtualNetworkConnectionGatewayID(input string) (*SlotVirtualNetworkConnectionGatewayId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SlotVirtualNetworkConnectionGatewayId{})
+	parser := resourceids.NewParserFromResourceIdType(&SlotVirtualNetworkConnectionGatewayId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -53,7 +58,7 @@ func ParseSlotVirtualNetworkConnectionGatewayID(input string) (*SlotVirtualNetwo
 // ParseSlotVirtualNetworkConnectionGatewayIDInsensitively parses 'input' case-insensitively into a SlotVirtualNetworkConnectionGatewayId
 // note: this method should only be used for API response data and not user input
 func ParseSlotVirtualNetworkConnectionGatewayIDInsensitively(input string) (*SlotVirtualNetworkConnectionGatewayId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SlotVirtualNetworkConnectionGatewayId{})
+	parser := resourceids.NewParserFromResourceIdType(&SlotVirtualNetworkConnectionGatewayId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

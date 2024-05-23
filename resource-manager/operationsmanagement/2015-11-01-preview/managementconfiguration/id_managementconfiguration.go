@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ManagementConfigurationId{}
+func init() {
+	recaser.RegisterResourceId(&ManagementConfigurationId{})
+}
+
+var _ resourceids.ResourceId = &ManagementConfigurationId{}
 
 // ManagementConfigurationId is a struct representing the Resource ID for a Management Configuration
 type ManagementConfigurationId struct {
@@ -30,7 +35,7 @@ func NewManagementConfigurationID(subscriptionId string, resourceGroupName strin
 
 // ParseManagementConfigurationID parses 'input' into a ManagementConfigurationId
 func ParseManagementConfigurationID(input string) (*ManagementConfigurationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ManagementConfigurationId{})
+	parser := resourceids.NewParserFromResourceIdType(&ManagementConfigurationId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseManagementConfigurationID(input string) (*ManagementConfigurationId, e
 // ParseManagementConfigurationIDInsensitively parses 'input' case-insensitively into a ManagementConfigurationId
 // note: this method should only be used for API response data and not user input
 func ParseManagementConfigurationIDInsensitively(input string) (*ManagementConfigurationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ManagementConfigurationId{})
+	parser := resourceids.NewParserFromResourceIdType(&ManagementConfigurationId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

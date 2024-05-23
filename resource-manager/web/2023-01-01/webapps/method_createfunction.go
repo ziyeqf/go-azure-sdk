@@ -18,6 +18,7 @@ type CreateFunctionOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *FunctionEnvelope
 }
 
 // CreateFunction ...

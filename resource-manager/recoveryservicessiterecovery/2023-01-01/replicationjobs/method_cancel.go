@@ -18,6 +18,7 @@ type CancelOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *Job
 }
 
 // Cancel ...

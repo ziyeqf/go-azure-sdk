@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = PacketCoreControlPlaneVersionId{}
+func init() {
+	recaser.RegisterResourceId(&PacketCoreControlPlaneVersionId{})
+}
+
+var _ resourceids.ResourceId = &PacketCoreControlPlaneVersionId{}
 
 // PacketCoreControlPlaneVersionId is a struct representing the Resource ID for a Packet Core Control Plane Version
 type PacketCoreControlPlaneVersionId struct {
@@ -26,7 +31,7 @@ func NewPacketCoreControlPlaneVersionID(packetCoreControlPlaneVersionName string
 
 // ParsePacketCoreControlPlaneVersionID parses 'input' into a PacketCoreControlPlaneVersionId
 func ParsePacketCoreControlPlaneVersionID(input string) (*PacketCoreControlPlaneVersionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PacketCoreControlPlaneVersionId{})
+	parser := resourceids.NewParserFromResourceIdType(&PacketCoreControlPlaneVersionId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -43,7 +48,7 @@ func ParsePacketCoreControlPlaneVersionID(input string) (*PacketCoreControlPlane
 // ParsePacketCoreControlPlaneVersionIDInsensitively parses 'input' case-insensitively into a PacketCoreControlPlaneVersionId
 // note: this method should only be used for API response data and not user input
 func ParsePacketCoreControlPlaneVersionIDInsensitively(input string) (*PacketCoreControlPlaneVersionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PacketCoreControlPlaneVersionId{})
+	parser := resourceids.NewParserFromResourceIdType(&PacketCoreControlPlaneVersionId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

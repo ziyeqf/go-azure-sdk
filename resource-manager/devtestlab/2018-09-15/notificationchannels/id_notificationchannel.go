@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = NotificationChannelId{}
+func init() {
+	recaser.RegisterResourceId(&NotificationChannelId{})
+}
+
+var _ resourceids.ResourceId = &NotificationChannelId{}
 
 // NotificationChannelId is a struct representing the Resource ID for a Notification Channel
 type NotificationChannelId struct {
@@ -32,7 +37,7 @@ func NewNotificationChannelID(subscriptionId string, resourceGroupName string, l
 
 // ParseNotificationChannelID parses 'input' into a NotificationChannelId
 func ParseNotificationChannelID(input string) (*NotificationChannelId, error) {
-	parser := resourceids.NewParserFromResourceIdType(NotificationChannelId{})
+	parser := resourceids.NewParserFromResourceIdType(&NotificationChannelId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseNotificationChannelID(input string) (*NotificationChannelId, error) {
 // ParseNotificationChannelIDInsensitively parses 'input' case-insensitively into a NotificationChannelId
 // note: this method should only be used for API response data and not user input
 func ParseNotificationChannelIDInsensitively(input string) (*NotificationChannelId, error) {
-	parser := resourceids.NewParserFromResourceIdType(NotificationChannelId{})
+	parser := resourceids.NewParserFromResourceIdType(&NotificationChannelId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

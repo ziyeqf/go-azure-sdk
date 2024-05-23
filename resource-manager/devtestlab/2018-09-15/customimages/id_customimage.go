@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = CustomImageId{}
+func init() {
+	recaser.RegisterResourceId(&CustomImageId{})
+}
+
+var _ resourceids.ResourceId = &CustomImageId{}
 
 // CustomImageId is a struct representing the Resource ID for a Custom Image
 type CustomImageId struct {
@@ -32,7 +37,7 @@ func NewCustomImageID(subscriptionId string, resourceGroupName string, labName s
 
 // ParseCustomImageID parses 'input' into a CustomImageId
 func ParseCustomImageID(input string) (*CustomImageId, error) {
-	parser := resourceids.NewParserFromResourceIdType(CustomImageId{})
+	parser := resourceids.NewParserFromResourceIdType(&CustomImageId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseCustomImageID(input string) (*CustomImageId, error) {
 // ParseCustomImageIDInsensitively parses 'input' case-insensitively into a CustomImageId
 // note: this method should only be used for API response data and not user input
 func ParseCustomImageIDInsensitively(input string) (*CustomImageId, error) {
-	parser := resourceids.NewParserFromResourceIdType(CustomImageId{})
+	parser := resourceids.NewParserFromResourceIdType(&CustomImageId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

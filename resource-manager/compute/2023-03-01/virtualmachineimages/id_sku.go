@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = SkuId{}
+func init() {
+	recaser.RegisterResourceId(&SkuId{})
+}
+
+var _ resourceids.ResourceId = &SkuId{}
 
 // SkuId is a struct representing the Resource ID for a Sku
 type SkuId struct {
@@ -34,7 +39,7 @@ func NewSkuID(subscriptionId string, locationName string, publisherName string, 
 
 // ParseSkuID parses 'input' into a SkuId
 func ParseSkuID(input string) (*SkuId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SkuId{})
+	parser := resourceids.NewParserFromResourceIdType(&SkuId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseSkuID(input string) (*SkuId, error) {
 // ParseSkuIDInsensitively parses 'input' case-insensitively into a SkuId
 // note: this method should only be used for API response data and not user input
 func ParseSkuIDInsensitively(input string) (*SkuId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SkuId{})
+	parser := resourceids.NewParserFromResourceIdType(&SkuId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

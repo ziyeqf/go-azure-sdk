@@ -18,6 +18,7 @@ type CreateVMGroupOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *WorkloadNetworkVMGroup
 }
 
 // CreateVMGroup ...

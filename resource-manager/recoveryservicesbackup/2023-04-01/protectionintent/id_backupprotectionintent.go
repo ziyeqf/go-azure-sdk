@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = BackupProtectionIntentId{}
+func init() {
+	recaser.RegisterResourceId(&BackupProtectionIntentId{})
+}
+
+var _ resourceids.ResourceId = &BackupProtectionIntentId{}
 
 // BackupProtectionIntentId is a struct representing the Resource ID for a Backup Protection Intent
 type BackupProtectionIntentId struct {
@@ -34,7 +39,7 @@ func NewBackupProtectionIntentID(subscriptionId string, resourceGroupName string
 
 // ParseBackupProtectionIntentID parses 'input' into a BackupProtectionIntentId
 func ParseBackupProtectionIntentID(input string) (*BackupProtectionIntentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BackupProtectionIntentId{})
+	parser := resourceids.NewParserFromResourceIdType(&BackupProtectionIntentId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseBackupProtectionIntentID(input string) (*BackupProtectionIntentId, err
 // ParseBackupProtectionIntentIDInsensitively parses 'input' case-insensitively into a BackupProtectionIntentId
 // note: this method should only be used for API response data and not user input
 func ParseBackupProtectionIntentIDInsensitively(input string) (*BackupProtectionIntentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BackupProtectionIntentId{})
+	parser := resourceids.NewParserFromResourceIdType(&BackupProtectionIntentId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

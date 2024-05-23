@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = InvitationId{}
+func init() {
+	recaser.RegisterResourceId(&InvitationId{})
+}
+
+var _ resourceids.ResourceId = &InvitationId{}
 
 // InvitationId is a struct representing the Resource ID for a Invitation
 type InvitationId struct {
@@ -34,7 +39,7 @@ func NewInvitationID(subscriptionId string, resourceGroupName string, accountNam
 
 // ParseInvitationID parses 'input' into a InvitationId
 func ParseInvitationID(input string) (*InvitationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(InvitationId{})
+	parser := resourceids.NewParserFromResourceIdType(&InvitationId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseInvitationID(input string) (*InvitationId, error) {
 // ParseInvitationIDInsensitively parses 'input' case-insensitively into a InvitationId
 // note: this method should only be used for API response data and not user input
 func ParseInvitationIDInsensitively(input string) (*InvitationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(InvitationId{})
+	parser := resourceids.NewParserFromResourceIdType(&InvitationId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

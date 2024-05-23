@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ApplicationWhitelistingId{}
+func init() {
+	recaser.RegisterResourceId(&ApplicationWhitelistingId{})
+}
+
+var _ resourceids.ResourceId = &ApplicationWhitelistingId{}
 
 // ApplicationWhitelistingId is a struct representing the Resource ID for a Application Whitelisting
 type ApplicationWhitelistingId struct {
@@ -30,7 +35,7 @@ func NewApplicationWhitelistingID(subscriptionId string, locationName string, ap
 
 // ParseApplicationWhitelistingID parses 'input' into a ApplicationWhitelistingId
 func ParseApplicationWhitelistingID(input string) (*ApplicationWhitelistingId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ApplicationWhitelistingId{})
+	parser := resourceids.NewParserFromResourceIdType(&ApplicationWhitelistingId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseApplicationWhitelistingID(input string) (*ApplicationWhitelistingId, e
 // ParseApplicationWhitelistingIDInsensitively parses 'input' case-insensitively into a ApplicationWhitelistingId
 // note: this method should only be used for API response data and not user input
 func ParseApplicationWhitelistingIDInsensitively(input string) (*ApplicationWhitelistingId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ApplicationWhitelistingId{})
+	parser := resourceids.NewParserFromResourceIdType(&ApplicationWhitelistingId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

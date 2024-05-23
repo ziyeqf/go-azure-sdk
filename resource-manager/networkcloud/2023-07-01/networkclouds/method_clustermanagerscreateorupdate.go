@@ -18,6 +18,7 @@ type ClusterManagersCreateOrUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *ClusterManager
 }
 
 // ClusterManagersCreateOrUpdate ...

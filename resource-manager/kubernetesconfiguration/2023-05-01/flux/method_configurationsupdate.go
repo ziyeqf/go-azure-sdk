@@ -18,6 +18,7 @@ type ConfigurationsUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *FluxConfiguration
 }
 
 // ConfigurationsUpdate ...

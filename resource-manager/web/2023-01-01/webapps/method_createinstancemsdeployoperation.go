@@ -18,6 +18,7 @@ type CreateInstanceMSDeployOperationOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *MSDeployStatus
 }
 
 // CreateInstanceMSDeployOperation ...

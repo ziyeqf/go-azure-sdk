@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = EntityId{}
+func init() {
+	recaser.RegisterResourceId(&EntityId{})
+}
+
+var _ resourceids.ResourceId = &EntityId{}
 
 // EntityId is a struct representing the Resource ID for a Entity
 type EntityId struct {
@@ -32,7 +37,7 @@ func NewEntityID(subscriptionId string, resourceGroupName string, workspaceName 
 
 // ParseEntityID parses 'input' into a EntityId
 func ParseEntityID(input string) (*EntityId, error) {
-	parser := resourceids.NewParserFromResourceIdType(EntityId{})
+	parser := resourceids.NewParserFromResourceIdType(&EntityId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseEntityID(input string) (*EntityId, error) {
 // ParseEntityIDInsensitively parses 'input' case-insensitively into a EntityId
 // note: this method should only be used for API response data and not user input
 func ParseEntityIDInsensitively(input string) (*EntityId, error) {
-	parser := resourceids.NewParserFromResourceIdType(EntityId{})
+	parser := resourceids.NewParserFromResourceIdType(&EntityId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

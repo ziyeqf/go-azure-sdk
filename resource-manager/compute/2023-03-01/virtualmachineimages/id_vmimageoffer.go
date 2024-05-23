@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = VMImageOfferId{}
+func init() {
+	recaser.RegisterResourceId(&VMImageOfferId{})
+}
+
+var _ resourceids.ResourceId = &VMImageOfferId{}
 
 // VMImageOfferId is a struct representing the Resource ID for a V M Image Offer
 type VMImageOfferId struct {
@@ -34,7 +39,7 @@ func NewVMImageOfferID(subscriptionId string, locationName string, edgeZoneName 
 
 // ParseVMImageOfferID parses 'input' into a VMImageOfferId
 func ParseVMImageOfferID(input string) (*VMImageOfferId, error) {
-	parser := resourceids.NewParserFromResourceIdType(VMImageOfferId{})
+	parser := resourceids.NewParserFromResourceIdType(&VMImageOfferId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseVMImageOfferID(input string) (*VMImageOfferId, error) {
 // ParseVMImageOfferIDInsensitively parses 'input' case-insensitively into a VMImageOfferId
 // note: this method should only be used for API response data and not user input
 func ParseVMImageOfferIDInsensitively(input string) (*VMImageOfferId, error) {
-	parser := resourceids.NewParserFromResourceIdType(VMImageOfferId{})
+	parser := resourceids.NewParserFromResourceIdType(&VMImageOfferId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

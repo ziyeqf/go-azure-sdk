@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ProcessId{}
+func init() {
+	recaser.RegisterResourceId(&ProcessId{})
+}
+
+var _ resourceids.ResourceId = &ProcessId{}
 
 // ProcessId is a struct representing the Resource ID for a Process
 type ProcessId struct {
@@ -32,7 +37,7 @@ func NewProcessID(subscriptionId string, resourceGroupName string, siteName stri
 
 // ParseProcessID parses 'input' into a ProcessId
 func ParseProcessID(input string) (*ProcessId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ProcessId{})
+	parser := resourceids.NewParserFromResourceIdType(&ProcessId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseProcessID(input string) (*ProcessId, error) {
 // ParseProcessIDInsensitively parses 'input' case-insensitively into a ProcessId
 // note: this method should only be used for API response data and not user input
 func ParseProcessIDInsensitively(input string) (*ProcessId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ProcessId{})
+	parser := resourceids.NewParserFromResourceIdType(&ProcessId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

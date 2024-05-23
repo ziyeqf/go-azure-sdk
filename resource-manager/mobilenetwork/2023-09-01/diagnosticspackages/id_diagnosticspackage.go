@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = DiagnosticsPackageId{}
+func init() {
+	recaser.RegisterResourceId(&DiagnosticsPackageId{})
+}
+
+var _ resourceids.ResourceId = &DiagnosticsPackageId{}
 
 // DiagnosticsPackageId is a struct representing the Resource ID for a Diagnostics Package
 type DiagnosticsPackageId struct {
@@ -32,7 +37,7 @@ func NewDiagnosticsPackageID(subscriptionId string, resourceGroupName string, pa
 
 // ParseDiagnosticsPackageID parses 'input' into a DiagnosticsPackageId
 func ParseDiagnosticsPackageID(input string) (*DiagnosticsPackageId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DiagnosticsPackageId{})
+	parser := resourceids.NewParserFromResourceIdType(&DiagnosticsPackageId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseDiagnosticsPackageID(input string) (*DiagnosticsPackageId, error) {
 // ParseDiagnosticsPackageIDInsensitively parses 'input' case-insensitively into a DiagnosticsPackageId
 // note: this method should only be used for API response data and not user input
 func ParseDiagnosticsPackageIDInsensitively(input string) (*DiagnosticsPackageId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DiagnosticsPackageId{})
+	parser := resourceids.NewParserFromResourceIdType(&DiagnosticsPackageId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

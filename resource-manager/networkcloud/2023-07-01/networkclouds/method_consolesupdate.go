@@ -18,6 +18,7 @@ type ConsolesUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *Console
 }
 
 // ConsolesUpdate ...

@@ -2,6 +2,7 @@ package triggers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -19,7 +20,8 @@ type ListByDataBoxEdgeDeviceOperationResponse struct {
 }
 
 type ListByDataBoxEdgeDeviceCompleteResult struct {
-	Items []Trigger
+	LatestHttpResponse *http.Response
+	Items              []Trigger
 }
 
 type ListByDataBoxEdgeDeviceOperationOptions struct {
@@ -77,13 +79,24 @@ func (c TriggersClient) ListByDataBoxEdgeDevice(ctx context.Context, id DataBoxE
 	}
 
 	var values struct {
-		Values *[]Trigger `json:"value"`
+		Values *[]json.RawMessage `json:"value"`
 	}
 	if err = resp.Unmarshal(&values); err != nil {
 		return
 	}
 
-	result.Model = values.Values
+	temp := make([]Trigger, 0)
+	if values.Values != nil {
+		for i, v := range *values.Values {
+			val, err := unmarshalTriggerImplementation(v)
+			if err != nil {
+				err = fmt.Errorf("unmarshalling item %d for Trigger (%q): %+v", i, v, err)
+				return result, err
+			}
+			temp = append(temp, val)
+		}
+	}
+	result.Model = &temp
 
 	return
 }
@@ -111,7 +124,8 @@ func (c TriggersClient) ListByDataBoxEdgeDeviceCompleteMatchingPredicate(ctx con
 	}
 
 	result = ListByDataBoxEdgeDeviceCompleteResult{
-		Items: items,
+		LatestHttpResponse: resp.HttpResponse,
+		Items:              items,
 	}
 	return
 }

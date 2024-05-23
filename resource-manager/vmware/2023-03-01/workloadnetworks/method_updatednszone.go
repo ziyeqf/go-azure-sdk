@@ -18,6 +18,7 @@ type UpdateDnsZoneOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *WorkloadNetworkDnsZone
 }
 
 // UpdateDnsZone ...

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = DeletedManagedHSMId{}
+func init() {
+	recaser.RegisterResourceId(&DeletedManagedHSMId{})
+}
+
+var _ resourceids.ResourceId = &DeletedManagedHSMId{}
 
 // DeletedManagedHSMId is a struct representing the Resource ID for a Deleted Managed H S M
 type DeletedManagedHSMId struct {
@@ -30,7 +35,7 @@ func NewDeletedManagedHSMID(subscriptionId string, locationName string, deletedM
 
 // ParseDeletedManagedHSMID parses 'input' into a DeletedManagedHSMId
 func ParseDeletedManagedHSMID(input string) (*DeletedManagedHSMId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DeletedManagedHSMId{})
+	parser := resourceids.NewParserFromResourceIdType(&DeletedManagedHSMId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseDeletedManagedHSMID(input string) (*DeletedManagedHSMId, error) {
 // ParseDeletedManagedHSMIDInsensitively parses 'input' case-insensitively into a DeletedManagedHSMId
 // note: this method should only be used for API response data and not user input
 func ParseDeletedManagedHSMIDInsensitively(input string) (*DeletedManagedHSMId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DeletedManagedHSMId{})
+	parser := resourceids.NewParserFromResourceIdType(&DeletedManagedHSMId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

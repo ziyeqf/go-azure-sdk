@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = VirtualMachineRunCommandId{}
+func init() {
+	recaser.RegisterResourceId(&VirtualMachineRunCommandId{})
+}
+
+var _ resourceids.ResourceId = &VirtualMachineRunCommandId{}
 
 // VirtualMachineRunCommandId is a struct representing the Resource ID for a Virtual Machine Run Command
 type VirtualMachineRunCommandId struct {
@@ -32,7 +37,7 @@ func NewVirtualMachineRunCommandID(subscriptionId string, resourceGroupName stri
 
 // ParseVirtualMachineRunCommandID parses 'input' into a VirtualMachineRunCommandId
 func ParseVirtualMachineRunCommandID(input string) (*VirtualMachineRunCommandId, error) {
-	parser := resourceids.NewParserFromResourceIdType(VirtualMachineRunCommandId{})
+	parser := resourceids.NewParserFromResourceIdType(&VirtualMachineRunCommandId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseVirtualMachineRunCommandID(input string) (*VirtualMachineRunCommandId,
 // ParseVirtualMachineRunCommandIDInsensitively parses 'input' case-insensitively into a VirtualMachineRunCommandId
 // note: this method should only be used for API response data and not user input
 func ParseVirtualMachineRunCommandIDInsensitively(input string) (*VirtualMachineRunCommandId, error) {
-	parser := resourceids.NewParserFromResourceIdType(VirtualMachineRunCommandId{})
+	parser := resourceids.NewParserFromResourceIdType(&VirtualMachineRunCommandId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

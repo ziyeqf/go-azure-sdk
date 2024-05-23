@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = DeletedBackupInstanceId{}
+func init() {
+	recaser.RegisterResourceId(&DeletedBackupInstanceId{})
+}
+
+var _ resourceids.ResourceId = &DeletedBackupInstanceId{}
 
 // DeletedBackupInstanceId is a struct representing the Resource ID for a Deleted Backup Instance
 type DeletedBackupInstanceId struct {
@@ -32,7 +37,7 @@ func NewDeletedBackupInstanceID(subscriptionId string, resourceGroupName string,
 
 // ParseDeletedBackupInstanceID parses 'input' into a DeletedBackupInstanceId
 func ParseDeletedBackupInstanceID(input string) (*DeletedBackupInstanceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DeletedBackupInstanceId{})
+	parser := resourceids.NewParserFromResourceIdType(&DeletedBackupInstanceId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseDeletedBackupInstanceID(input string) (*DeletedBackupInstanceId, error
 // ParseDeletedBackupInstanceIDInsensitively parses 'input' case-insensitively into a DeletedBackupInstanceId
 // note: this method should only be used for API response data and not user input
 func ParseDeletedBackupInstanceIDInsensitively(input string) (*DeletedBackupInstanceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DeletedBackupInstanceId{})
+	parser := resourceids.NewParserFromResourceIdType(&DeletedBackupInstanceId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = WcfRelayAuthorizationRuleId{}
+func init() {
+	recaser.RegisterResourceId(&WcfRelayAuthorizationRuleId{})
+}
+
+var _ resourceids.ResourceId = &WcfRelayAuthorizationRuleId{}
 
 // WcfRelayAuthorizationRuleId is a struct representing the Resource ID for a Wcf Relay Authorization Rule
 type WcfRelayAuthorizationRuleId struct {
@@ -34,7 +39,7 @@ func NewWcfRelayAuthorizationRuleID(subscriptionId string, resourceGroupName str
 
 // ParseWcfRelayAuthorizationRuleID parses 'input' into a WcfRelayAuthorizationRuleId
 func ParseWcfRelayAuthorizationRuleID(input string) (*WcfRelayAuthorizationRuleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(WcfRelayAuthorizationRuleId{})
+	parser := resourceids.NewParserFromResourceIdType(&WcfRelayAuthorizationRuleId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseWcfRelayAuthorizationRuleID(input string) (*WcfRelayAuthorizationRuleI
 // ParseWcfRelayAuthorizationRuleIDInsensitively parses 'input' case-insensitively into a WcfRelayAuthorizationRuleId
 // note: this method should only be used for API response data and not user input
 func ParseWcfRelayAuthorizationRuleIDInsensitively(input string) (*WcfRelayAuthorizationRuleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(WcfRelayAuthorizationRuleId{})
+	parser := resourceids.NewParserFromResourceIdType(&WcfRelayAuthorizationRuleId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

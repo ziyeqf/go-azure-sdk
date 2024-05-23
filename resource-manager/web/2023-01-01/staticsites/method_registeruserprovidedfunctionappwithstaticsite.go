@@ -18,6 +18,7 @@ type RegisterUserProvidedFunctionAppWithStaticSiteOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *StaticSiteUserProvidedFunctionAppARMResource
 }
 
 type RegisterUserProvidedFunctionAppWithStaticSiteOperationOptions struct {

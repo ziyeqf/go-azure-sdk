@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = LocalRulestackPrefixListId{}
+func init() {
+	recaser.RegisterResourceId(&LocalRulestackPrefixListId{})
+}
+
+var _ resourceids.ResourceId = &LocalRulestackPrefixListId{}
 
 // LocalRulestackPrefixListId is a struct representing the Resource ID for a Local Rulestack Prefix List
 type LocalRulestackPrefixListId struct {
@@ -32,7 +37,7 @@ func NewLocalRulestackPrefixListID(subscriptionId string, resourceGroupName stri
 
 // ParseLocalRulestackPrefixListID parses 'input' into a LocalRulestackPrefixListId
 func ParseLocalRulestackPrefixListID(input string) (*LocalRulestackPrefixListId, error) {
-	parser := resourceids.NewParserFromResourceIdType(LocalRulestackPrefixListId{})
+	parser := resourceids.NewParserFromResourceIdType(&LocalRulestackPrefixListId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseLocalRulestackPrefixListID(input string) (*LocalRulestackPrefixListId,
 // ParseLocalRulestackPrefixListIDInsensitively parses 'input' case-insensitively into a LocalRulestackPrefixListId
 // note: this method should only be used for API response data and not user input
 func ParseLocalRulestackPrefixListIDInsensitively(input string) (*LocalRulestackPrefixListId, error) {
-	parser := resourceids.NewParserFromResourceIdType(LocalRulestackPrefixListId{})
+	parser := resourceids.NewParserFromResourceIdType(&LocalRulestackPrefixListId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

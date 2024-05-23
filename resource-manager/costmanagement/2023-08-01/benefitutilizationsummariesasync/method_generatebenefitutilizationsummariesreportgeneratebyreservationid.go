@@ -18,6 +18,7 @@ type GenerateBenefitUtilizationSummariesReportGenerateByReservationIdOperationRe
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *BenefitUtilizationSummariesOperationStatus
 }
 
 // GenerateBenefitUtilizationSummariesReportGenerateByReservationId ...

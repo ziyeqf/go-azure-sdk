@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = TriggeredWebJobId{}
+func init() {
+	recaser.RegisterResourceId(&TriggeredWebJobId{})
+}
+
+var _ resourceids.ResourceId = &TriggeredWebJobId{}
 
 // TriggeredWebJobId is a struct representing the Resource ID for a Triggered Web Job
 type TriggeredWebJobId struct {
@@ -32,7 +37,7 @@ func NewTriggeredWebJobID(subscriptionId string, resourceGroupName string, siteN
 
 // ParseTriggeredWebJobID parses 'input' into a TriggeredWebJobId
 func ParseTriggeredWebJobID(input string) (*TriggeredWebJobId, error) {
-	parser := resourceids.NewParserFromResourceIdType(TriggeredWebJobId{})
+	parser := resourceids.NewParserFromResourceIdType(&TriggeredWebJobId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseTriggeredWebJobID(input string) (*TriggeredWebJobId, error) {
 // ParseTriggeredWebJobIDInsensitively parses 'input' case-insensitively into a TriggeredWebJobId
 // note: this method should only be used for API response data and not user input
 func ParseTriggeredWebJobIDInsensitively(input string) (*TriggeredWebJobId, error) {
-	parser := resourceids.NewParserFromResourceIdType(TriggeredWebJobId{})
+	parser := resourceids.NewParserFromResourceIdType(&TriggeredWebJobId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -18,6 +18,7 @@ type SaveOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *OperationResultContract
 }
 
 // Save ...

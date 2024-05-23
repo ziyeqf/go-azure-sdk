@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedRoleEligibilityScheduleId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedRoleEligibilityScheduleId{})
+}
+
+var _ resourceids.ResourceId = &ScopedRoleEligibilityScheduleId{}
 
 // ScopedRoleEligibilityScheduleId is a struct representing the Resource ID for a Scoped Role Eligibility Schedule
 type ScopedRoleEligibilityScheduleId struct {
@@ -28,7 +33,7 @@ func NewScopedRoleEligibilityScheduleID(scope string, roleEligibilityScheduleNam
 
 // ParseScopedRoleEligibilityScheduleID parses 'input' into a ScopedRoleEligibilityScheduleId
 func ParseScopedRoleEligibilityScheduleID(input string) (*ScopedRoleEligibilityScheduleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedRoleEligibilityScheduleId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedRoleEligibilityScheduleId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedRoleEligibilityScheduleID(input string) (*ScopedRoleEligibilityS
 // ParseScopedRoleEligibilityScheduleIDInsensitively parses 'input' case-insensitively into a ScopedRoleEligibilityScheduleId
 // note: this method should only be used for API response data and not user input
 func ParseScopedRoleEligibilityScheduleIDInsensitively(input string) (*ScopedRoleEligibilityScheduleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedRoleEligibilityScheduleId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedRoleEligibilityScheduleId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

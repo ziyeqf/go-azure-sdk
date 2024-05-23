@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/commonids"
 	"github.com/hashicorp/go-azure-sdk/sdk/client"
 	"github.com/hashicorp/go-azure-sdk/sdk/odata"
 )
@@ -19,11 +20,12 @@ type ListByHostGroupOperationResponse struct {
 }
 
 type ListByHostGroupCompleteResult struct {
-	Items []DedicatedHost
+	LatestHttpResponse *http.Response
+	Items              []DedicatedHost
 }
 
 // ListByHostGroup ...
-func (c DedicatedHostClient) ListByHostGroup(ctx context.Context, id HostGroupId) (result ListByHostGroupOperationResponse, err error) {
+func (c DedicatedHostClient) ListByHostGroup(ctx context.Context, id commonids.DedicatedHostGroupId) (result ListByHostGroupOperationResponse, err error) {
 	opts := client.RequestOptions{
 		ContentType: "application/json; charset=utf-8",
 		ExpectedStatusCodes: []int{
@@ -61,12 +63,12 @@ func (c DedicatedHostClient) ListByHostGroup(ctx context.Context, id HostGroupId
 }
 
 // ListByHostGroupComplete retrieves all the results into a single object
-func (c DedicatedHostClient) ListByHostGroupComplete(ctx context.Context, id HostGroupId) (ListByHostGroupCompleteResult, error) {
+func (c DedicatedHostClient) ListByHostGroupComplete(ctx context.Context, id commonids.DedicatedHostGroupId) (ListByHostGroupCompleteResult, error) {
 	return c.ListByHostGroupCompleteMatchingPredicate(ctx, id, DedicatedHostOperationPredicate{})
 }
 
 // ListByHostGroupCompleteMatchingPredicate retrieves all the results and then applies the predicate
-func (c DedicatedHostClient) ListByHostGroupCompleteMatchingPredicate(ctx context.Context, id HostGroupId, predicate DedicatedHostOperationPredicate) (result ListByHostGroupCompleteResult, err error) {
+func (c DedicatedHostClient) ListByHostGroupCompleteMatchingPredicate(ctx context.Context, id commonids.DedicatedHostGroupId, predicate DedicatedHostOperationPredicate) (result ListByHostGroupCompleteResult, err error) {
 	items := make([]DedicatedHost, 0)
 
 	resp, err := c.ListByHostGroup(ctx, id)
@@ -83,7 +85,8 @@ func (c DedicatedHostClient) ListByHostGroupCompleteMatchingPredicate(ctx contex
 	}
 
 	result = ListByHostGroupCompleteResult{
-		Items: items,
+		LatestHttpResponse: resp.HttpResponse,
+		Items:              items,
 	}
 	return
 }

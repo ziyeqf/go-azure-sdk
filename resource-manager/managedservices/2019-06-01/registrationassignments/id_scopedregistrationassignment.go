@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedRegistrationAssignmentId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedRegistrationAssignmentId{})
+}
+
+var _ resourceids.ResourceId = &ScopedRegistrationAssignmentId{}
 
 // ScopedRegistrationAssignmentId is a struct representing the Resource ID for a Scoped Registration Assignment
 type ScopedRegistrationAssignmentId struct {
@@ -28,7 +33,7 @@ func NewScopedRegistrationAssignmentID(scope string, registrationAssignmentId st
 
 // ParseScopedRegistrationAssignmentID parses 'input' into a ScopedRegistrationAssignmentId
 func ParseScopedRegistrationAssignmentID(input string) (*ScopedRegistrationAssignmentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedRegistrationAssignmentId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedRegistrationAssignmentId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedRegistrationAssignmentID(input string) (*ScopedRegistrationAssig
 // ParseScopedRegistrationAssignmentIDInsensitively parses 'input' case-insensitively into a ScopedRegistrationAssignmentId
 // note: this method should only be used for API response data and not user input
 func ParseScopedRegistrationAssignmentIDInsensitively(input string) (*ScopedRegistrationAssignmentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedRegistrationAssignmentId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedRegistrationAssignmentId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

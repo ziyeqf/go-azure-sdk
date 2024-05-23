@@ -18,6 +18,7 @@ type L2NetworksCreateOrUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *L2Network
 }
 
 // L2NetworksCreateOrUpdate ...

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = PooledScheduleId{}
+func init() {
+	recaser.RegisterResourceId(&PooledScheduleId{})
+}
+
+var _ resourceids.ResourceId = &PooledScheduleId{}
 
 // PooledScheduleId is a struct representing the Resource ID for a Pooled Schedule
 type PooledScheduleId struct {
@@ -32,7 +37,7 @@ func NewPooledScheduleID(subscriptionId string, resourceGroupName string, scalin
 
 // ParsePooledScheduleID parses 'input' into a PooledScheduleId
 func ParsePooledScheduleID(input string) (*PooledScheduleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PooledScheduleId{})
+	parser := resourceids.NewParserFromResourceIdType(&PooledScheduleId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParsePooledScheduleID(input string) (*PooledScheduleId, error) {
 // ParsePooledScheduleIDInsensitively parses 'input' case-insensitively into a PooledScheduleId
 // note: this method should only be used for API response data and not user input
 func ParsePooledScheduleIDInsensitively(input string) (*PooledScheduleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PooledScheduleId{})
+	parser := resourceids.NewParserFromResourceIdType(&PooledScheduleId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

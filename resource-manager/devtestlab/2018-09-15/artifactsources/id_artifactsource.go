@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ArtifactSourceId{}
+func init() {
+	recaser.RegisterResourceId(&ArtifactSourceId{})
+}
+
+var _ resourceids.ResourceId = &ArtifactSourceId{}
 
 // ArtifactSourceId is a struct representing the Resource ID for a Artifact Source
 type ArtifactSourceId struct {
@@ -32,7 +37,7 @@ func NewArtifactSourceID(subscriptionId string, resourceGroupName string, labNam
 
 // ParseArtifactSourceID parses 'input' into a ArtifactSourceId
 func ParseArtifactSourceID(input string) (*ArtifactSourceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ArtifactSourceId{})
+	parser := resourceids.NewParserFromResourceIdType(&ArtifactSourceId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseArtifactSourceID(input string) (*ArtifactSourceId, error) {
 // ParseArtifactSourceIDInsensitively parses 'input' case-insensitively into a ArtifactSourceId
 // note: this method should only be used for API response data and not user input
 func ParseArtifactSourceIDInsensitively(input string) (*ArtifactSourceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ArtifactSourceId{})
+	parser := resourceids.NewParserFromResourceIdType(&ArtifactSourceId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

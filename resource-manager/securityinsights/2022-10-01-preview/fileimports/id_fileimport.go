@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = FileImportId{}
+func init() {
+	recaser.RegisterResourceId(&FileImportId{})
+}
+
+var _ resourceids.ResourceId = &FileImportId{}
 
 // FileImportId is a struct representing the Resource ID for a File Import
 type FileImportId struct {
@@ -32,7 +37,7 @@ func NewFileImportID(subscriptionId string, resourceGroupName string, workspaceN
 
 // ParseFileImportID parses 'input' into a FileImportId
 func ParseFileImportID(input string) (*FileImportId, error) {
-	parser := resourceids.NewParserFromResourceIdType(FileImportId{})
+	parser := resourceids.NewParserFromResourceIdType(&FileImportId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseFileImportID(input string) (*FileImportId, error) {
 // ParseFileImportIDInsensitively parses 'input' case-insensitively into a FileImportId
 // note: this method should only be used for API response data and not user input
 func ParseFileImportIDInsensitively(input string) (*FileImportId, error) {
-	parser := resourceids.NewParserFromResourceIdType(FileImportId{})
+	parser := resourceids.NewParserFromResourceIdType(&FileImportId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

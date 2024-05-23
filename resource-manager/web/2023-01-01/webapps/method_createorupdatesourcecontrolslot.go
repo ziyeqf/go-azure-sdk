@@ -18,6 +18,7 @@ type CreateOrUpdateSourceControlSlotOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *SiteSourceControl
 }
 
 // CreateOrUpdateSourceControlSlot ...

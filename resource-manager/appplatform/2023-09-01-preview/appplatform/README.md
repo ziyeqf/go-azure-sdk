@@ -8,6 +8,7 @@ This readme covers example usages, but further information on [using this SDK ca
 ### Import Path
 
 ```go
+import "github.com/hashicorp/go-azure-helpers/resourcemanager/commonids"
 import "github.com/hashicorp/go-azure-sdk/resource-manager/appplatform/2023-09-01-preview/appplatform"
 ```
 
@@ -131,7 +132,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ApiPortalsList(ctx, id)` can be used to do batched pagination
 items, err := client.ApiPortalsListComplete(ctx, id)
@@ -214,7 +215,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ApmsList(ctx, id)` can be used to do batched pagination
 items, err := client.ApmsListComplete(ctx, id)
@@ -292,7 +293,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ApplicationAcceleratorsList(ctx, id)` can be used to do batched pagination
 items, err := client.ApplicationAcceleratorsListComplete(ctx, id)
@@ -354,7 +355,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ApplicationLiveViewsList(ctx, id)` can be used to do batched pagination
 items, err := client.ApplicationLiveViewsListComplete(ctx, id)
@@ -432,7 +433,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.AppsList(ctx, id)` can be used to do batched pagination
 items, err := client.AppsListComplete(ctx, id)
@@ -890,7 +891,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.BuildServiceListBuildServices(ctx, id)` can be used to do batched pagination
 items, err := client.BuildServiceListBuildServicesComplete(ctx, id)
@@ -926,12 +927,13 @@ for _, item := range items {
 ctx := context.TODO()
 id := appplatform.NewBuildServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue", "buildServiceValue")
 
-read, err := client.BuildServiceListSupportedBuildpacks(ctx, id)
+// alternatively `client.BuildServiceListSupportedBuildpacks(ctx, id)` can be used to do batched pagination
+items, err := client.BuildServiceListSupportedBuildpacksComplete(ctx, id)
 if err != nil {
 	// handle the error
 }
-if model := read.Model; model != nil {
-	// do something with the model/response object
+for _, item := range items {
+	// do something
 }
 ```
 
@@ -942,12 +944,13 @@ if model := read.Model; model != nil {
 ctx := context.TODO()
 id := appplatform.NewBuildServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue", "buildServiceValue")
 
-read, err := client.BuildServiceListSupportedStacks(ctx, id)
+// alternatively `client.BuildServiceListSupportedStacks(ctx, id)` can be used to do batched pagination
+items, err := client.BuildServiceListSupportedStacksComplete(ctx, id)
 if err != nil {
 	// handle the error
 }
-if model := read.Model; model != nil {
-	// do something with the model/response object
+for _, item := range items {
+	// do something
 }
 ```
 
@@ -1018,7 +1021,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.BuildpackBindingListForCluster(ctx, id)` can be used to do batched pagination
 items, err := client.BuildpackBindingListForClusterComplete(ctx, id)
@@ -1080,7 +1083,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.CertificatesList(ctx, id)` can be used to do batched pagination
 items, err := client.CertificatesListComplete(ctx, id)
@@ -1097,7 +1100,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.ConfigServersGet(ctx, id)
 if err != nil {
@@ -1113,7 +1116,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ConfigServerResource{
 	// ...
@@ -1130,7 +1133,7 @@ if err := client.ConfigServersUpdatePatchThenPoll(ctx, id, payload); err != nil 
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ConfigServerResource{
 	// ...
@@ -1147,7 +1150,7 @@ if err := client.ConfigServersUpdatePutThenPoll(ctx, id, payload); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ConfigServerSettings{
 	// ...
@@ -1209,7 +1212,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ConfigurationServicesList(ctx, id)` can be used to do batched pagination
 items, err := client.ConfigurationServicesListComplete(ctx, id)
@@ -1305,7 +1308,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ContainerRegistriesList(ctx, id)` can be used to do batched pagination
 items, err := client.ContainerRegistriesListComplete(ctx, id)
@@ -1658,7 +1661,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.DeploymentsListForCluster(ctx, id, appplatform.DefaultDeploymentsListForClusterOperationOptions())` can be used to do batched pagination
 items, err := client.DeploymentsListForClusterComplete(ctx, id, appplatform.DefaultDeploymentsListForClusterOperationOptions())
@@ -1790,7 +1793,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.DevToolPortalsList(ctx, id)` can be used to do batched pagination
 items, err := client.DevToolPortalsListComplete(ctx, id)
@@ -1807,7 +1810,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.EurekaServersGet(ctx, id)
 if err != nil {
@@ -1823,14 +1826,15 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
-read, err := client.EurekaServersList(ctx, id)
+// alternatively `client.EurekaServersList(ctx, id)` can be used to do batched pagination
+items, err := client.EurekaServersListComplete(ctx, id)
 if err != nil {
 	// handle the error
 }
-if model := read.Model; model != nil {
-	// do something with the model/response object
+for _, item := range items {
+	// do something
 }
 ```
 
@@ -1839,7 +1843,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.EurekaServerResource{
 	// ...
@@ -1856,7 +1860,7 @@ if err := client.EurekaServersUpdatePatchThenPoll(ctx, id, payload); err != nil 
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.EurekaServerResource{
 	// ...
@@ -2042,7 +2046,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.GatewaysList(ctx, id)` can be used to do batched pagination
 items, err := client.GatewaysListComplete(ctx, id)
@@ -2125,7 +2129,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.MonitoringSettingsGet(ctx, id)
 if err != nil {
@@ -2141,7 +2145,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.MonitoringSettingResource{
 	// ...
@@ -2158,7 +2162,7 @@ if err := client.MonitoringSettingsUpdatePatchThenPoll(ctx, id, payload); err !=
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.MonitoringSettingResource{
 	// ...
@@ -2288,7 +2292,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ServiceRegistriesList(ctx, id)` can be used to do batched pagination
 items, err := client.ServiceRegistriesListComplete(ctx, id)
@@ -2326,7 +2330,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ServiceResource{
 	// ...
@@ -2343,7 +2347,7 @@ if err := client.ServicesCreateOrUpdateThenPoll(ctx, id, payload); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 if err := client.ServicesDeleteThenPoll(ctx, id); err != nil {
 	// handle the error
@@ -2355,7 +2359,7 @@ if err := client.ServicesDeleteThenPoll(ctx, id); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ApmReference{
 	// ...
@@ -2372,7 +2376,7 @@ if err := client.ServicesDisableApmGloballyThenPoll(ctx, id, payload); err != ni
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.ServicesDisableTestEndpoint(ctx, id)
 if err != nil {
@@ -2388,7 +2392,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ApmReference{
 	// ...
@@ -2405,7 +2409,7 @@ if err := client.ServicesEnableApmGloballyThenPoll(ctx, id, payload); err != nil
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.ServicesEnableTestEndpoint(ctx, id)
 if err != nil {
@@ -2421,7 +2425,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 if err := client.ServicesFlushVnetDnsSettingThenPoll(ctx, id); err != nil {
 	// handle the error
@@ -2433,7 +2437,7 @@ if err := client.ServicesFlushVnetDnsSettingThenPoll(ctx, id); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.ServicesGet(ctx, id)
 if err != nil {
@@ -2449,7 +2453,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewResourceGroupID("12345678-1234-9876-4563-123456789012", "example-resource-group")
+id := commonids.NewResourceGroupID("12345678-1234-9876-4563-123456789012", "example-resource-group")
 
 // alternatively `client.ServicesList(ctx, id)` can be used to do batched pagination
 items, err := client.ServicesListComplete(ctx, id)
@@ -2466,7 +2470,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSubscriptionID("12345678-1234-9876-4563-123456789012")
+id := commonids.NewSubscriptionID("12345678-1234-9876-4563-123456789012")
 
 // alternatively `client.ServicesListBySubscription(ctx, id)` can be used to do batched pagination
 items, err := client.ServicesListBySubscriptionComplete(ctx, id)
@@ -2483,7 +2487,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.ServicesListGloballyEnabledApms(ctx, id)
 if err != nil {
@@ -2499,7 +2503,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ServicesListSupportedApmTypes(ctx, id)` can be used to do batched pagination
 items, err := client.ServicesListSupportedApmTypesComplete(ctx, id)
@@ -2516,7 +2520,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.ServicesListSupportedServerVersions(ctx, id)` can be used to do batched pagination
 items, err := client.ServicesListSupportedServerVersionsComplete(ctx, id)
@@ -2533,7 +2537,7 @@ for _, item := range items {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 read, err := client.ServicesListTestKeys(ctx, id)
 if err != nil {
@@ -2549,7 +2553,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.RegenerateTestKeyRequestPayload{
 	// ...
@@ -2570,7 +2574,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 if err := client.ServicesStartThenPoll(ctx, id); err != nil {
 	// handle the error
@@ -2582,7 +2586,7 @@ if err := client.ServicesStartThenPoll(ctx, id); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 if err := client.ServicesStopThenPoll(ctx, id); err != nil {
 	// handle the error
@@ -2594,7 +2598,7 @@ if err := client.ServicesStopThenPoll(ctx, id); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 payload := appplatform.ServiceResource{
 	// ...
@@ -2611,7 +2615,7 @@ if err := client.ServicesUpdateThenPoll(ctx, id, payload); err != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSubscriptionID("12345678-1234-9876-4563-123456789012")
+id := commonids.NewSubscriptionID("12345678-1234-9876-4563-123456789012")
 
 // alternatively `client.SkusList(ctx, id)` can be used to do batched pagination
 items, err := client.SkusListComplete(ctx, id)
@@ -2673,7 +2677,7 @@ if model := read.Model; model != nil {
 
 ```go
 ctx := context.TODO()
-id := appplatform.NewSpringID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
+id := commonids.NewSpringCloudServiceID("12345678-1234-9876-4563-123456789012", "example-resource-group", "springValue")
 
 // alternatively `client.StoragesList(ctx, id)` can be used to do batched pagination
 items, err := client.StoragesListComplete(ctx, id)

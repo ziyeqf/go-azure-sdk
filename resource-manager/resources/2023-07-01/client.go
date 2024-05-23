@@ -6,22 +6,32 @@ package v2023_07_01
 import (
 	"fmt"
 
+	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2023-07-01/deploymentoperations"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2023-07-01/deployments"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2023-07-01/providers"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2023-07-01/resourcegroups"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2023-07-01/resources"
+	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2023-07-01/tags"
 	"github.com/hashicorp/go-azure-sdk/sdk/client/resourcemanager"
 	sdkEnv "github.com/hashicorp/go-azure-sdk/sdk/environments"
 )
 
 type Client struct {
-	Deployments    *deployments.DeploymentsClient
-	Providers      *providers.ProvidersClient
-	ResourceGroups *resourcegroups.ResourceGroupsClient
-	Resources      *resources.ResourcesClient
+	DeploymentOperations *deploymentoperations.DeploymentOperationsClient
+	Deployments          *deployments.DeploymentsClient
+	Providers            *providers.ProvidersClient
+	ResourceGroups       *resourcegroups.ResourceGroupsClient
+	Resources            *resources.ResourcesClient
+	Tags                 *tags.TagsClient
 }
 
 func NewClientWithBaseURI(sdkApi sdkEnv.Api, configureFunc func(c *resourcemanager.Client)) (*Client, error) {
+	deploymentOperationsClient, err := deploymentoperations.NewDeploymentOperationsClientWithBaseURI(sdkApi)
+	if err != nil {
+		return nil, fmt.Errorf("building DeploymentOperations client: %+v", err)
+	}
+	configureFunc(deploymentOperationsClient.Client)
+
 	deploymentsClient, err := deployments.NewDeploymentsClientWithBaseURI(sdkApi)
 	if err != nil {
 		return nil, fmt.Errorf("building Deployments client: %+v", err)
@@ -46,10 +56,18 @@ func NewClientWithBaseURI(sdkApi sdkEnv.Api, configureFunc func(c *resourcemanag
 	}
 	configureFunc(resourcesClient.Client)
 
+	tagsClient, err := tags.NewTagsClientWithBaseURI(sdkApi)
+	if err != nil {
+		return nil, fmt.Errorf("building Tags client: %+v", err)
+	}
+	configureFunc(tagsClient.Client)
+
 	return &Client{
-		Deployments:    deploymentsClient,
-		Providers:      providersClient,
-		ResourceGroups: resourceGroupsClient,
-		Resources:      resourcesClient,
+		DeploymentOperations: deploymentOperationsClient,
+		Deployments:          deploymentsClient,
+		Providers:            providersClient,
+		ResourceGroups:       resourceGroupsClient,
+		Resources:            resourcesClient,
+		Tags:                 tagsClient,
 	}, nil
 }

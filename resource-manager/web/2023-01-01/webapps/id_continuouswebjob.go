@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ContinuousWebJobId{}
+func init() {
+	recaser.RegisterResourceId(&ContinuousWebJobId{})
+}
+
+var _ resourceids.ResourceId = &ContinuousWebJobId{}
 
 // ContinuousWebJobId is a struct representing the Resource ID for a Continuous Web Job
 type ContinuousWebJobId struct {
@@ -32,7 +37,7 @@ func NewContinuousWebJobID(subscriptionId string, resourceGroupName string, site
 
 // ParseContinuousWebJobID parses 'input' into a ContinuousWebJobId
 func ParseContinuousWebJobID(input string) (*ContinuousWebJobId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ContinuousWebJobId{})
+	parser := resourceids.NewParserFromResourceIdType(&ContinuousWebJobId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseContinuousWebJobID(input string) (*ContinuousWebJobId, error) {
 // ParseContinuousWebJobIDInsensitively parses 'input' case-insensitively into a ContinuousWebJobId
 // note: this method should only be used for API response data and not user input
 func ParseContinuousWebJobIDInsensitively(input string) (*ContinuousWebJobId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ContinuousWebJobId{})
+	parser := resourceids.NewParserFromResourceIdType(&ContinuousWebJobId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -18,6 +18,7 @@ type CreateSegmentsOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *WorkloadNetworkSegment
 }
 
 // CreateSegments ...

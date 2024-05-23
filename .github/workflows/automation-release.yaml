@@ -14,25 +14,35 @@ jobs:
     permissions:
       contents: write
     outputs:
-      latest_tag: ${{ steps.results.outputs.latest_tag }}
+      latest_tag: ${{ steps.version-number.outputs.latest_tag }}
       should_update_azurerm: ${{ steps.results.outputs.should_update_azurerm }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: ./.go-version
 
       - name: run the unit tests
         run: |
           make tools
           make test
 
-      - name: "determine and publish the Git Tag"
+      - id: version-number
+        name: "Determining the Version Number.."
         run: |
-          ./scripts/determine-and-publish-git-tag.sh
+          latestTag=$(./scripts/determine-git-tag.sh)
+          echo "latest_tag=$latestTag" >> "$GITHUB_OUTPUT"
+        shell: bash
+
+      - name: "Publish the Git Tag"
+        run: |
+          ./scripts/publish-git-tag.sh ${{ steps.version-number.outputs.latest_tag }}
+        shell: bash
 
       - id: results
         name: "collecting outputs"
         run: |
-          latestTag=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "latest_tag=$latestTag" >> "$GITHUB_OUTPUT"
           echo "should_update_azurerm=${{ github.event.pull_request.merged == true && contains( github.event.pull_request.labels.*.name, 'update-azurerm-after-release') }}" >> "$GITHUB_OUTPUT"
         shell: bash
 
@@ -40,12 +50,14 @@ jobs:
     needs: [release-go-sdk]
     if: ${{github.event.pull_request.merged == true && contains( github.event.pull_request.labels.*.name, 'update-azurerm-after-release') }}
     runs-on: custom-linux-xl
+    outputs:
+      has_changes_to_push: ${{ steps.update-azurerm-provider.outputs.has_changes_to_push }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
         with:
           go-version-file: ./.go-version
 
@@ -66,12 +78,13 @@ jobs:
       - id: update-azurerm-provider
         name: "Update then push the AzureRM Provider"
         run: |
+          # update the provider
           ./scripts/update-azurerm-provider.sh ${{ needs.release-go-sdk.outputs.latest_tag }}
-          if [[ $(git diff main --name-only | wc -l) -gt 0 ]]; then
-            echo "has_changes_to_push=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_changes_to_push=false" >> "$GITHUB_OUTPUT"
-          fi
+          # then read the result out
+          has_changes_to_push="$(cat ./tmp/has-changes-to-push.txt)"
+          echo "Has Changes to Push: ${has_changes_to_push}"
+          echo "has_changes_to_push=$has_changes_to_push" >> "$GITHUB_OUTPUT"
+
         shell: bash
         env:
           GIT_COMMIT_USERNAME: "hc-github-team-tf-azure"
@@ -97,9 +110,8 @@ jobs:
           echo "Sleeping 60s to give Github time to create the PR.."
           sleep 60
 
-      - id: find-pr-number
-        name: Find the PR number
-        if: ${{ steps.update-azurerm-provider.outputs.has_changes_to_push == true }}
+      - id: comment-on-the-pr
+        name: Comment on the PR
         uses: nick-fields/retry@14672906e672a08bd6eeb15720e9ed3ce869cdd4 # v2.9.0
         with:
           max_attempts: 20
@@ -108,24 +120,21 @@ jobs:
           shell: bash
           timeout_seconds: 30
           command: |
-            echo "Finding the PR number.."
-            pr_number=$(gh pr list --repo="hashicorp/terraform-provider-azurerm" --search "author:hc-github-team-tf-azure sort:created-desc is:pr is:open" --json "headRefName,number" | jq '.[] | select(.headRefName=="auto-deps-pr/updating-go-azure-sdk-to-${{ needs.release-go-sdk.outputs.latest_tag }}") | .number')
-            if [[ "${pr_number}" == "" ]]; then
-              # not ready yet
-              echo "PR Number not found, not available yet?"
-              exit 1
+            echo "Determining if has changes to push.."
+            has_changes_to_push="${{ steps.update-azurerm-provider.outputs.has_changes_to_push }}"
+            echo "Has Changes to Push: ${has_changes_to_push}"
+            if [[ "${has_changes_to_push}" == "yes" ]]; then
+              echo "Finding the PR number.."
+              pr_number=$(gh pr list --repo="hashicorp/terraform-provider-azurerm" --search "author:hc-github-team-tf-azure sort:created-desc is:pr is:open" --json "headRefName,number" | jq '.[] | select(.headRefName=="auto-deps-pr/updating-go-azure-sdk-to-${{ needs.release-go-sdk.outputs.latest_tag }}") | .number')
+              if [[ "${pr_number}" == "" ]]; then
+                # not ready yet
+                echo "PR Number not found, not available yet?"
+                exit 1
+              fi
+            
+              echo "PR Number was ${pr_number}"
+              gh issue comment $pr_number --repo "hashicorp/terraform-provider-azurerm" --body-file ./tmp/pr-description.txt
             fi
-            echo "PR Number was ${pr_number}"
-            echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: "${{ secrets.AZURERM_COMMENT_KEY }}"
-
-      - name: Comment on the PR with the PR description
-        if: ${{ steps.update-azurerm-provider.outputs.has_changes_to_push == true }}
-        run: |
-          pr_number="${{ steps.find-pr-number.outputs.pr_number }}"
-          echo "Commenting on PR Number ${pr_number}.."
-          gh issue comment $pr_number --repo "hashicorp/terraform-provider-azurerm" --body-file ./tmp/pr-description.txt
-        shell: bash
+            
         env:
           GH_TOKEN: "${{ secrets.AZURERM_COMMENT_KEY }}"

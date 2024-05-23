@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedApplyUpdateId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedApplyUpdateId{})
+}
+
+var _ resourceids.ResourceId = &ScopedApplyUpdateId{}
 
 // ScopedApplyUpdateId is a struct representing the Resource ID for a Scoped Apply Update
 type ScopedApplyUpdateId struct {
@@ -28,7 +33,7 @@ func NewScopedApplyUpdateID(scope string, applyUpdateName string) ScopedApplyUpd
 
 // ParseScopedApplyUpdateID parses 'input' into a ScopedApplyUpdateId
 func ParseScopedApplyUpdateID(input string) (*ScopedApplyUpdateId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedApplyUpdateId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedApplyUpdateId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedApplyUpdateID(input string) (*ScopedApplyUpdateId, error) {
 // ParseScopedApplyUpdateIDInsensitively parses 'input' case-insensitively into a ScopedApplyUpdateId
 // note: this method should only be used for API response data and not user input
 func ParseScopedApplyUpdateIDInsensitively(input string) (*ScopedApplyUpdateId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedApplyUpdateId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedApplyUpdateId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

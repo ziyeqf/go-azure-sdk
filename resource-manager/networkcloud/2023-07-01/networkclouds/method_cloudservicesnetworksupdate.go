@@ -18,6 +18,7 @@ type CloudServicesNetworksUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *CloudServicesNetwork
 }
 
 // CloudServicesNetworksUpdate ...

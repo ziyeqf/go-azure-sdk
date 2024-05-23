@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = BandwidthScheduleId{}
+func init() {
+	recaser.RegisterResourceId(&BandwidthScheduleId{})
+}
+
+var _ resourceids.ResourceId = &BandwidthScheduleId{}
 
 // BandwidthScheduleId is a struct representing the Resource ID for a Bandwidth Schedule
 type BandwidthScheduleId struct {
@@ -32,7 +37,7 @@ func NewBandwidthScheduleID(subscriptionId string, resourceGroupName string, dat
 
 // ParseBandwidthScheduleID parses 'input' into a BandwidthScheduleId
 func ParseBandwidthScheduleID(input string) (*BandwidthScheduleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BandwidthScheduleId{})
+	parser := resourceids.NewParserFromResourceIdType(&BandwidthScheduleId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseBandwidthScheduleID(input string) (*BandwidthScheduleId, error) {
 // ParseBandwidthScheduleIDInsensitively parses 'input' case-insensitively into a BandwidthScheduleId
 // note: this method should only be used for API response data and not user input
 func ParseBandwidthScheduleIDInsensitively(input string) (*BandwidthScheduleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BandwidthScheduleId{})
+	parser := resourceids.NewParserFromResourceIdType(&BandwidthScheduleId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

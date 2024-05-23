@@ -18,6 +18,7 @@ type CreateOrUpdateAtResourceOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *Attestation
 }
 
 // CreateOrUpdateAtResource ...

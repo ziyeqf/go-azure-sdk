@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = StaticSiteId{}
+func init() {
+	recaser.RegisterResourceId(&StaticSiteId{})
+}
+
+var _ resourceids.ResourceId = &StaticSiteId{}
 
 // StaticSiteId is a struct representing the Resource ID for a Static Site
 type StaticSiteId struct {
@@ -30,7 +35,7 @@ func NewStaticSiteID(subscriptionId string, resourceGroupName string, staticSite
 
 // ParseStaticSiteID parses 'input' into a StaticSiteId
 func ParseStaticSiteID(input string) (*StaticSiteId, error) {
-	parser := resourceids.NewParserFromResourceIdType(StaticSiteId{})
+	parser := resourceids.NewParserFromResourceIdType(&StaticSiteId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseStaticSiteID(input string) (*StaticSiteId, error) {
 // ParseStaticSiteIDInsensitively parses 'input' case-insensitively into a StaticSiteId
 // note: this method should only be used for API response data and not user input
 func ParseStaticSiteIDInsensitively(input string) (*StaticSiteId, error) {
-	parser := resourceids.NewParserFromResourceIdType(StaticSiteId{})
+	parser := resourceids.NewParserFromResourceIdType(&StaticSiteId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

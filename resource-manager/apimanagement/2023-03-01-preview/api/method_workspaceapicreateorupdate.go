@@ -18,6 +18,7 @@ type WorkspaceApiCreateOrUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *ApiContract
 }
 
 type WorkspaceApiCreateOrUpdateOperationOptions struct {

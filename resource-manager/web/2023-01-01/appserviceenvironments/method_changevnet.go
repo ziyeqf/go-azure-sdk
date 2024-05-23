@@ -23,7 +23,8 @@ type ChangeVnetOperationResponse struct {
 }
 
 type ChangeVnetCompleteResult struct {
-	Items []Site
+	LatestHttpResponse *http.Response
+	Items              []Site
 }
 
 // ChangeVnet ...
@@ -56,15 +57,6 @@ func (c AppServiceEnvironmentsClient) ChangeVnet(ctx context.Context, id commoni
 	if err != nil {
 		return
 	}
-
-	var values struct {
-		Values *[]Site `json:"value"`
-	}
-	if err = resp.Unmarshal(&values); err != nil {
-		return
-	}
-
-	result.Model = values.Values
 
 	result.Poller, err = resourcemanager.PollerFromResponse(resp, c.Client)
 	if err != nil {

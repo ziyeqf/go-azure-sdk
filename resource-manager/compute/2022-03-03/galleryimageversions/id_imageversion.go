@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ImageVersionId{}
+func init() {
+	recaser.RegisterResourceId(&ImageVersionId{})
+}
+
+var _ resourceids.ResourceId = &ImageVersionId{}
 
 // ImageVersionId is a struct representing the Resource ID for a Image Version
 type ImageVersionId struct {
@@ -34,7 +39,7 @@ func NewImageVersionID(subscriptionId string, resourceGroupName string, galleryN
 
 // ParseImageVersionID parses 'input' into a ImageVersionId
 func ParseImageVersionID(input string) (*ImageVersionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ImageVersionId{})
+	parser := resourceids.NewParserFromResourceIdType(&ImageVersionId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseImageVersionID(input string) (*ImageVersionId, error) {
 // ParseImageVersionIDInsensitively parses 'input' case-insensitively into a ImageVersionId
 // note: this method should only be used for API response data and not user input
 func ParseImageVersionIDInsensitively(input string) (*ImageVersionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ImageVersionId{})
+	parser := resourceids.NewParserFromResourceIdType(&ImageVersionId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

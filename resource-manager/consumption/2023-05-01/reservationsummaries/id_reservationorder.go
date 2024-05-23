@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ReservationOrderId{}
+func init() {
+	recaser.RegisterResourceId(&ReservationOrderId{})
+}
+
+var _ resourceids.ResourceId = &ReservationOrderId{}
 
 // ReservationOrderId is a struct representing the Resource ID for a Reservation Order
 type ReservationOrderId struct {
@@ -26,7 +31,7 @@ func NewReservationOrderID(reservationOrderId string) ReservationOrderId {
 
 // ParseReservationOrderID parses 'input' into a ReservationOrderId
 func ParseReservationOrderID(input string) (*ReservationOrderId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ReservationOrderId{})
+	parser := resourceids.NewParserFromResourceIdType(&ReservationOrderId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -43,7 +48,7 @@ func ParseReservationOrderID(input string) (*ReservationOrderId, error) {
 // ParseReservationOrderIDInsensitively parses 'input' case-insensitively into a ReservationOrderId
 // note: this method should only be used for API response data and not user input
 func ParseReservationOrderIDInsensitively(input string) (*ReservationOrderId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ReservationOrderId{})
+	parser := resourceids.NewParserFromResourceIdType(&ReservationOrderId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

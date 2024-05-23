@@ -18,10 +18,11 @@ type ApproveOrRejectPrivateEndpointConnectionOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *RemotePrivateEndpointConnectionARMResource
 }
 
 // ApproveOrRejectPrivateEndpointConnection ...
-func (c WebAppsClient) ApproveOrRejectPrivateEndpointConnection(ctx context.Context, id PrivateEndpointConnectionId, input PrivateLinkConnectionApprovalRequestResource) (result ApproveOrRejectPrivateEndpointConnectionOperationResponse, err error) {
+func (c WebAppsClient) ApproveOrRejectPrivateEndpointConnection(ctx context.Context, id PrivateEndpointConnectionId, input RemotePrivateEndpointConnectionARMResource) (result ApproveOrRejectPrivateEndpointConnectionOperationResponse, err error) {
 	opts := client.RequestOptions{
 		ContentType: "application/json; charset=utf-8",
 		ExpectedStatusCodes: []int{
@@ -60,7 +61,7 @@ func (c WebAppsClient) ApproveOrRejectPrivateEndpointConnection(ctx context.Cont
 }
 
 // ApproveOrRejectPrivateEndpointConnectionThenPoll performs ApproveOrRejectPrivateEndpointConnection then polls until it's completed
-func (c WebAppsClient) ApproveOrRejectPrivateEndpointConnectionThenPoll(ctx context.Context, id PrivateEndpointConnectionId, input PrivateLinkConnectionApprovalRequestResource) error {
+func (c WebAppsClient) ApproveOrRejectPrivateEndpointConnectionThenPoll(ctx context.Context, id PrivateEndpointConnectionId, input RemotePrivateEndpointConnectionARMResource) error {
 	result, err := c.ApproveOrRejectPrivateEndpointConnection(ctx, id, input)
 	if err != nil {
 		return fmt.Errorf("performing ApproveOrRejectPrivateEndpointConnection: %+v", err)

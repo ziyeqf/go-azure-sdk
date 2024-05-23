@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/commonids"
 	"github.com/hashicorp/go-azure-sdk/sdk/client"
 	"github.com/hashicorp/go-azure-sdk/sdk/client/pollers"
 	"github.com/hashicorp/go-azure-sdk/sdk/client/resourcemanager"
@@ -18,10 +19,11 @@ type CreateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *Cluster
 }
 
 // Create ...
-func (c ClustersClient) Create(ctx context.Context, id ClusterId, input ClusterCreateParametersExtended) (result CreateOperationResponse, err error) {
+func (c ClustersClient) Create(ctx context.Context, id commonids.HDInsightClusterId, input ClusterCreateParametersExtended) (result CreateOperationResponse, err error) {
 	opts := client.RequestOptions{
 		ContentType: "application/json; charset=utf-8",
 		ExpectedStatusCodes: []int{
@@ -59,7 +61,7 @@ func (c ClustersClient) Create(ctx context.Context, id ClusterId, input ClusterC
 }
 
 // CreateThenPoll performs Create then polls until it's completed
-func (c ClustersClient) CreateThenPoll(ctx context.Context, id ClusterId, input ClusterCreateParametersExtended) error {
+func (c ClustersClient) CreateThenPoll(ctx context.Context, id commonids.HDInsightClusterId, input ClusterCreateParametersExtended) error {
 	result, err := c.Create(ctx, id, input)
 	if err != nil {
 		return fmt.Errorf("performing Create: %+v", err)

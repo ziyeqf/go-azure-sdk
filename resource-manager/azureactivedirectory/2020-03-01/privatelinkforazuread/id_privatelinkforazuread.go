@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = PrivateLinkForAzureAdId{}
+func init() {
+	recaser.RegisterResourceId(&PrivateLinkForAzureAdId{})
+}
+
+var _ resourceids.ResourceId = &PrivateLinkForAzureAdId{}
 
 // PrivateLinkForAzureAdId is a struct representing the Resource ID for a Private Link For Azure Ad
 type PrivateLinkForAzureAdId struct {
@@ -30,7 +35,7 @@ func NewPrivateLinkForAzureAdID(subscriptionId string, resourceGroupName string,
 
 // ParsePrivateLinkForAzureAdID parses 'input' into a PrivateLinkForAzureAdId
 func ParsePrivateLinkForAzureAdID(input string) (*PrivateLinkForAzureAdId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PrivateLinkForAzureAdId{})
+	parser := resourceids.NewParserFromResourceIdType(&PrivateLinkForAzureAdId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParsePrivateLinkForAzureAdID(input string) (*PrivateLinkForAzureAdId, error
 // ParsePrivateLinkForAzureAdIDInsensitively parses 'input' case-insensitively into a PrivateLinkForAzureAdId
 // note: this method should only be used for API response data and not user input
 func ParsePrivateLinkForAzureAdIDInsensitively(input string) (*PrivateLinkForAzureAdId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PrivateLinkForAzureAdId{})
+	parser := resourceids.NewParserFromResourceIdType(&PrivateLinkForAzureAdId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

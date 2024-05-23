@@ -19,6 +19,7 @@ type MigrateStorageOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *StorageMigrationResponse
 }
 
 type MigrateStorageOperationOptions struct {

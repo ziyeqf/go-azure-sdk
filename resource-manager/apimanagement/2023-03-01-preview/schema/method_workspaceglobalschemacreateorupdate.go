@@ -18,6 +18,7 @@ type WorkspaceGlobalSchemaCreateOrUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *GlobalSchemaContract
 }
 
 type WorkspaceGlobalSchemaCreateOrUpdateOperationOptions struct {

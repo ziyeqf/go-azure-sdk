@@ -18,6 +18,7 @@ type BareMetalMachinesUpdateOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *BareMetalMachine
 }
 
 // BareMetalMachinesUpdate ...

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = IndicatorId{}
+func init() {
+	recaser.RegisterResourceId(&IndicatorId{})
+}
+
+var _ resourceids.ResourceId = &IndicatorId{}
 
 // IndicatorId is a struct representing the Resource ID for a Indicator
 type IndicatorId struct {
@@ -32,7 +37,7 @@ func NewIndicatorID(subscriptionId string, resourceGroupName string, workspaceNa
 
 // ParseIndicatorID parses 'input' into a IndicatorId
 func ParseIndicatorID(input string) (*IndicatorId, error) {
-	parser := resourceids.NewParserFromResourceIdType(IndicatorId{})
+	parser := resourceids.NewParserFromResourceIdType(&IndicatorId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseIndicatorID(input string) (*IndicatorId, error) {
 // ParseIndicatorIDInsensitively parses 'input' case-insensitively into a IndicatorId
 // note: this method should only be used for API response data and not user input
 func ParseIndicatorIDInsensitively(input string) (*IndicatorId, error) {
-	parser := resourceids.NewParserFromResourceIdType(IndicatorId{})
+	parser := resourceids.NewParserFromResourceIdType(&IndicatorId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

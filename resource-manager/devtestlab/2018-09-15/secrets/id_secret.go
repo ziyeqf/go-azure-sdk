@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = SecretId{}
+func init() {
+	recaser.RegisterResourceId(&SecretId{})
+}
+
+var _ resourceids.ResourceId = &SecretId{}
 
 // SecretId is a struct representing the Resource ID for a Secret
 type SecretId struct {
@@ -34,7 +39,7 @@ func NewSecretID(subscriptionId string, resourceGroupName string, labName string
 
 // ParseSecretID parses 'input' into a SecretId
 func ParseSecretID(input string) (*SecretId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SecretId{})
+	parser := resourceids.NewParserFromResourceIdType(&SecretId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseSecretID(input string) (*SecretId, error) {
 // ParseSecretIDInsensitively parses 'input' case-insensitively into a SecretId
 // note: this method should only be used for API response data and not user input
 func ParseSecretIDInsensitively(input string) (*SecretId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SecretId{})
+	parser := resourceids.NewParserFromResourceIdType(&SecretId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

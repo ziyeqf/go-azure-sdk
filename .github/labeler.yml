@@ -2,4 +2,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 release-once-merged:
-   - resource-manager/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - microsoft-graph/**/*
+    - resource-manager/**/*
+    - sdk/**/*

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = MyWorkbookId{}
+func init() {
+	recaser.RegisterResourceId(&MyWorkbookId{})
+}
+
+var _ resourceids.ResourceId = &MyWorkbookId{}
 
 // MyWorkbookId is a struct representing the Resource ID for a My Workbook
 type MyWorkbookId struct {
@@ -30,7 +35,7 @@ func NewMyWorkbookID(subscriptionId string, resourceGroupName string, myWorkbook
 
 // ParseMyWorkbookID parses 'input' into a MyWorkbookId
 func ParseMyWorkbookID(input string) (*MyWorkbookId, error) {
-	parser := resourceids.NewParserFromResourceIdType(MyWorkbookId{})
+	parser := resourceids.NewParserFromResourceIdType(&MyWorkbookId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseMyWorkbookID(input string) (*MyWorkbookId, error) {
 // ParseMyWorkbookIDInsensitively parses 'input' case-insensitively into a MyWorkbookId
 // note: this method should only be used for API response data and not user input
 func ParseMyWorkbookIDInsensitively(input string) (*MyWorkbookId, error) {
-	parser := resourceids.NewParserFromResourceIdType(MyWorkbookId{})
+	parser := resourceids.NewParserFromResourceIdType(&MyWorkbookId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

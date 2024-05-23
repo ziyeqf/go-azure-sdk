@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = RunCommandId{}
+func init() {
+	recaser.RegisterResourceId(&RunCommandId{})
+}
+
+var _ resourceids.ResourceId = &RunCommandId{}
 
 // RunCommandId is a struct representing the Resource ID for a Run Command
 type RunCommandId struct {
@@ -30,7 +35,7 @@ func NewRunCommandID(subscriptionId string, locationName string, commandId strin
 
 // ParseRunCommandID parses 'input' into a RunCommandId
 func ParseRunCommandID(input string) (*RunCommandId, error) {
-	parser := resourceids.NewParserFromResourceIdType(RunCommandId{})
+	parser := resourceids.NewParserFromResourceIdType(&RunCommandId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseRunCommandID(input string) (*RunCommandId, error) {
 // ParseRunCommandIDInsensitively parses 'input' case-insensitively into a RunCommandId
 // note: this method should only be used for API response data and not user input
 func ParseRunCommandIDInsensitively(input string) (*RunCommandId, error) {
-	parser := resourceids.NewParserFromResourceIdType(RunCommandId{})
+	parser := resourceids.NewParserFromResourceIdType(&RunCommandId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

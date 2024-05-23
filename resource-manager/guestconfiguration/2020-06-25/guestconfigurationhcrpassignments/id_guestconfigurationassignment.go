@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = GuestConfigurationAssignmentId{}
+func init() {
+	recaser.RegisterResourceId(&GuestConfigurationAssignmentId{})
+}
+
+var _ resourceids.ResourceId = &GuestConfigurationAssignmentId{}
 
 // GuestConfigurationAssignmentId is a struct representing the Resource ID for a Guest Configuration Assignment
 type GuestConfigurationAssignmentId struct {
@@ -32,7 +37,7 @@ func NewGuestConfigurationAssignmentID(subscriptionId string, resourceGroupName 
 
 // ParseGuestConfigurationAssignmentID parses 'input' into a GuestConfigurationAssignmentId
 func ParseGuestConfigurationAssignmentID(input string) (*GuestConfigurationAssignmentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(GuestConfigurationAssignmentId{})
+	parser := resourceids.NewParserFromResourceIdType(&GuestConfigurationAssignmentId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseGuestConfigurationAssignmentID(input string) (*GuestConfigurationAssig
 // ParseGuestConfigurationAssignmentIDInsensitively parses 'input' case-insensitively into a GuestConfigurationAssignmentId
 // note: this method should only be used for API response data and not user input
 func ParseGuestConfigurationAssignmentIDInsensitively(input string) (*GuestConfigurationAssignmentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(GuestConfigurationAssignmentId{})
+	parser := resourceids.NewParserFromResourceIdType(&GuestConfigurationAssignmentId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -18,6 +18,7 @@ type UpdateDiagnosticProactiveLogCollectionSettingsOperationResponse struct {
 	Poller       pollers.Poller
 	HttpResponse *http.Response
 	OData        *odata.OData
+	Model        *DiagnosticProactiveLogCollectionSettings
 }
 
 // UpdateDiagnosticProactiveLogCollectionSettings ...

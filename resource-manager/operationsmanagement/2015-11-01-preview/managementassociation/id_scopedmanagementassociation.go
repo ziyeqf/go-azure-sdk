@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedManagementAssociationId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedManagementAssociationId{})
+}
+
+var _ resourceids.ResourceId = &ScopedManagementAssociationId{}
 
 // ScopedManagementAssociationId is a struct representing the Resource ID for a Scoped Management Association
 type ScopedManagementAssociationId struct {
@@ -28,7 +33,7 @@ func NewScopedManagementAssociationID(scope string, managementAssociationName st
 
 // ParseScopedManagementAssociationID parses 'input' into a ScopedManagementAssociationId
 func ParseScopedManagementAssociationID(input string) (*ScopedManagementAssociationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedManagementAssociationId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedManagementAssociationId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedManagementAssociationID(input string) (*ScopedManagementAssociat
 // ParseScopedManagementAssociationIDInsensitively parses 'input' case-insensitively into a ScopedManagementAssociationId
 // note: this method should only be used for API response data and not user input
 func ParseScopedManagementAssociationIDInsensitively(input string) (*ScopedManagementAssociationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedManagementAssociationId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedManagementAssociationId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

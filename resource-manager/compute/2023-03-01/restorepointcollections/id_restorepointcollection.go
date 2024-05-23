@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = RestorePointCollectionId{}
+func init() {
+	recaser.RegisterResourceId(&RestorePointCollectionId{})
+}
+
+var _ resourceids.ResourceId = &RestorePointCollectionId{}
 
 // RestorePointCollectionId is a struct representing the Resource ID for a Restore Point Collection
 type RestorePointCollectionId struct {
@@ -30,7 +35,7 @@ func NewRestorePointCollectionID(subscriptionId string, resourceGroupName string
 
 // ParseRestorePointCollectionID parses 'input' into a RestorePointCollectionId
 func ParseRestorePointCollectionID(input string) (*RestorePointCollectionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(RestorePointCollectionId{})
+	parser := resourceids.NewParserFromResourceIdType(&RestorePointCollectionId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseRestorePointCollectionID(input string) (*RestorePointCollectionId, err
 // ParseRestorePointCollectionIDInsensitively parses 'input' case-insensitively into a RestorePointCollectionId
 // note: this method should only be used for API response data and not user input
 func ParseRestorePointCollectionIDInsensitively(input string) (*RestorePointCollectionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(RestorePointCollectionId{})
+	parser := resourceids.NewParserFromResourceIdType(&RestorePointCollectionId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

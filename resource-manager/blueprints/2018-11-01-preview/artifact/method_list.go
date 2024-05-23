@@ -2,6 +2,7 @@ package artifact
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -19,7 +20,8 @@ type ListOperationResponse struct {
 }
 
 type ListCompleteResult struct {
-	Items []Artifact
+	LatestHttpResponse *http.Response
+	Items              []Artifact
 }
 
 // List ...
@@ -49,13 +51,24 @@ func (c ArtifactClient) List(ctx context.Context, id ScopedBlueprintId) (result 
 	}
 
 	var values struct {
-		Values *[]Artifact `json:"value"`
+		Values *[]json.RawMessage `json:"value"`
 	}
 	if err = resp.Unmarshal(&values); err != nil {
 		return
 	}
 
-	result.Model = values.Values
+	temp := make([]Artifact, 0)
+	if values.Values != nil {
+		for i, v := range *values.Values {
+			val, err := unmarshalArtifactImplementation(v)
+			if err != nil {
+				err = fmt.Errorf("unmarshalling item %d for Artifact (%q): %+v", i, v, err)
+				return result, err
+			}
+			temp = append(temp, val)
+		}
+	}
+	result.Model = &temp
 
 	return
 }
@@ -83,7 +96,8 @@ func (c ArtifactClient) ListCompleteMatchingPredicate(ctx context.Context, id Sc
 	}
 
 	result = ListCompleteResult{
-		Items: items,
+		LatestHttpResponse: resp.HttpResponse,
+		Items:              items,
 	}
 	return
 }

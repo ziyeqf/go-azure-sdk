@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ApiKeyId{}
+func init() {
+	recaser.RegisterResourceId(&ApiKeyId{})
+}
+
+var _ resourceids.ResourceId = &ApiKeyId{}
 
 // ApiKeyId is a struct representing the Resource ID for a Api Key
 type ApiKeyId struct {
@@ -32,7 +37,7 @@ func NewApiKeyID(subscriptionId string, resourceGroupName string, componentName 
 
 // ParseApiKeyID parses 'input' into a ApiKeyId
 func ParseApiKeyID(input string) (*ApiKeyId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ApiKeyId{})
+	parser := resourceids.NewParserFromResourceIdType(&ApiKeyId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseApiKeyID(input string) (*ApiKeyId, error) {
 // ParseApiKeyIDInsensitively parses 'input' case-insensitively into a ApiKeyId
 // note: this method should only be used for API response data and not user input
 func ParseApiKeyIDInsensitively(input string) (*ApiKeyId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ApiKeyId{})
+	parser := resourceids.NewParserFromResourceIdType(&ApiKeyId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

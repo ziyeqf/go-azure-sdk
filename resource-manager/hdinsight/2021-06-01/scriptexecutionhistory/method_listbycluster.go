@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/commonids"
 	"github.com/hashicorp/go-azure-sdk/sdk/client"
 	"github.com/hashicorp/go-azure-sdk/sdk/odata"
 )
@@ -19,11 +20,12 @@ type ListByClusterOperationResponse struct {
 }
 
 type ListByClusterCompleteResult struct {
-	Items []RuntimeScriptActionDetail
+	LatestHttpResponse *http.Response
+	Items              []RuntimeScriptActionDetail
 }
 
 // ListByCluster ...
-func (c ScriptExecutionHistoryClient) ListByCluster(ctx context.Context, id ClusterId) (result ListByClusterOperationResponse, err error) {
+func (c ScriptExecutionHistoryClient) ListByCluster(ctx context.Context, id commonids.HDInsightClusterId) (result ListByClusterOperationResponse, err error) {
 	opts := client.RequestOptions{
 		ContentType: "application/json; charset=utf-8",
 		ExpectedStatusCodes: []int{
@@ -61,12 +63,12 @@ func (c ScriptExecutionHistoryClient) ListByCluster(ctx context.Context, id Clus
 }
 
 // ListByClusterComplete retrieves all the results into a single object
-func (c ScriptExecutionHistoryClient) ListByClusterComplete(ctx context.Context, id ClusterId) (ListByClusterCompleteResult, error) {
+func (c ScriptExecutionHistoryClient) ListByClusterComplete(ctx context.Context, id commonids.HDInsightClusterId) (ListByClusterCompleteResult, error) {
 	return c.ListByClusterCompleteMatchingPredicate(ctx, id, RuntimeScriptActionDetailOperationPredicate{})
 }
 
 // ListByClusterCompleteMatchingPredicate retrieves all the results and then applies the predicate
-func (c ScriptExecutionHistoryClient) ListByClusterCompleteMatchingPredicate(ctx context.Context, id ClusterId, predicate RuntimeScriptActionDetailOperationPredicate) (result ListByClusterCompleteResult, err error) {
+func (c ScriptExecutionHistoryClient) ListByClusterCompleteMatchingPredicate(ctx context.Context, id commonids.HDInsightClusterId, predicate RuntimeScriptActionDetailOperationPredicate) (result ListByClusterCompleteResult, err error) {
 	items := make([]RuntimeScriptActionDetail, 0)
 
 	resp, err := c.ListByCluster(ctx, id)
@@ -83,7 +85,8 @@ func (c ScriptExecutionHistoryClient) ListByClusterCompleteMatchingPredicate(ctx
 	}
 
 	result = ListByClusterCompleteResult{
-		Items: items,
+		LatestHttpResponse: resp.HttpResponse,
+		Items:              items,
 	}
 	return
 }

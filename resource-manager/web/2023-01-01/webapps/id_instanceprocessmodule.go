@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = InstanceProcessModuleId{}
+func init() {
+	recaser.RegisterResourceId(&InstanceProcessModuleId{})
+}
+
+var _ resourceids.ResourceId = &InstanceProcessModuleId{}
 
 // InstanceProcessModuleId is a struct representing the Resource ID for a Instance Process Module
 type InstanceProcessModuleId struct {
@@ -36,7 +41,7 @@ func NewInstanceProcessModuleID(subscriptionId string, resourceGroupName string,
 
 // ParseInstanceProcessModuleID parses 'input' into a InstanceProcessModuleId
 func ParseInstanceProcessModuleID(input string) (*InstanceProcessModuleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(InstanceProcessModuleId{})
+	parser := resourceids.NewParserFromResourceIdType(&InstanceProcessModuleId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -53,7 +58,7 @@ func ParseInstanceProcessModuleID(input string) (*InstanceProcessModuleId, error
 // ParseInstanceProcessModuleIDInsensitively parses 'input' case-insensitively into a InstanceProcessModuleId
 // note: this method should only be used for API response data and not user input
 func ParseInstanceProcessModuleIDInsensitively(input string) (*InstanceProcessModuleId, error) {
-	parser := resourceids.NewParserFromResourceIdType(InstanceProcessModuleId{})
+	parser := resourceids.NewParserFromResourceIdType(&InstanceProcessModuleId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

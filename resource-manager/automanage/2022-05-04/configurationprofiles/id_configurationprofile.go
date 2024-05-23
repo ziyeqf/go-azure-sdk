@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ConfigurationProfileId{}
+func init() {
+	recaser.RegisterResourceId(&ConfigurationProfileId{})
+}
+
+var _ resourceids.ResourceId = &ConfigurationProfileId{}
 
 // ConfigurationProfileId is a struct representing the Resource ID for a Configuration Profile
 type ConfigurationProfileId struct {
@@ -30,7 +35,7 @@ func NewConfigurationProfileID(subscriptionId string, resourceGroupName string, 
 
 // ParseConfigurationProfileID parses 'input' into a ConfigurationProfileId
 func ParseConfigurationProfileID(input string) (*ConfigurationProfileId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ConfigurationProfileId{})
+	parser := resourceids.NewParserFromResourceIdType(&ConfigurationProfileId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseConfigurationProfileID(input string) (*ConfigurationProfileId, error) 
 // ParseConfigurationProfileIDInsensitively parses 'input' case-insensitively into a ConfigurationProfileId
 // note: this method should only be used for API response data and not user input
 func ParseConfigurationProfileIDInsensitively(input string) (*ConfigurationProfileId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ConfigurationProfileId{})
+	parser := resourceids.NewParserFromResourceIdType(&ConfigurationProfileId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

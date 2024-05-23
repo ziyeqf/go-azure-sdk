@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = SiteSlotNetworkTraceId{}
+func init() {
+	recaser.RegisterResourceId(&SiteSlotNetworkTraceId{})
+}
+
+var _ resourceids.ResourceId = &SiteSlotNetworkTraceId{}
 
 // SiteSlotNetworkTraceId is a struct representing the Resource ID for a Site Slot Network Trace
 type SiteSlotNetworkTraceId struct {
@@ -34,7 +39,7 @@ func NewSiteSlotNetworkTraceID(subscriptionId string, resourceGroupName string, 
 
 // ParseSiteSlotNetworkTraceID parses 'input' into a SiteSlotNetworkTraceId
 func ParseSiteSlotNetworkTraceID(input string) (*SiteSlotNetworkTraceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SiteSlotNetworkTraceId{})
+	parser := resourceids.NewParserFromResourceIdType(&SiteSlotNetworkTraceId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseSiteSlotNetworkTraceID(input string) (*SiteSlotNetworkTraceId, error) 
 // ParseSiteSlotNetworkTraceIDInsensitively parses 'input' case-insensitively into a SiteSlotNetworkTraceId
 // note: this method should only be used for API response data and not user input
 func ParseSiteSlotNetworkTraceIDInsensitively(input string) (*SiteSlotNetworkTraceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(SiteSlotNetworkTraceId{})
+	parser := resourceids.NewParserFromResourceIdType(&SiteSlotNetworkTraceId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

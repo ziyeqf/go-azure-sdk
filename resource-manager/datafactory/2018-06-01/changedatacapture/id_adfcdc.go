@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = AdfcdcId{}
+func init() {
+	recaser.RegisterResourceId(&AdfcdcId{})
+}
+
+var _ resourceids.ResourceId = &AdfcdcId{}
 
 // AdfcdcId is a struct representing the Resource ID for a Adfcdc
 type AdfcdcId struct {
@@ -32,7 +37,7 @@ func NewAdfcdcID(subscriptionId string, resourceGroupName string, factoryName st
 
 // ParseAdfcdcID parses 'input' into a AdfcdcId
 func ParseAdfcdcID(input string) (*AdfcdcId, error) {
-	parser := resourceids.NewParserFromResourceIdType(AdfcdcId{})
+	parser := resourceids.NewParserFromResourceIdType(&AdfcdcId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseAdfcdcID(input string) (*AdfcdcId, error) {
 // ParseAdfcdcIDInsensitively parses 'input' case-insensitively into a AdfcdcId
 // note: this method should only be used for API response data and not user input
 func ParseAdfcdcIDInsensitively(input string) (*AdfcdcId, error) {
-	parser := resourceids.NewParserFromResourceIdType(AdfcdcId{})
+	parser := resourceids.NewParserFromResourceIdType(&AdfcdcId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

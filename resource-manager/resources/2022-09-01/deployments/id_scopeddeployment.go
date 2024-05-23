@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedDeploymentId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedDeploymentId{})
+}
+
+var _ resourceids.ResourceId = &ScopedDeploymentId{}
 
 // ScopedDeploymentId is a struct representing the Resource ID for a Scoped Deployment
 type ScopedDeploymentId struct {
@@ -28,7 +33,7 @@ func NewScopedDeploymentID(scope string, deploymentName string) ScopedDeployment
 
 // ParseScopedDeploymentID parses 'input' into a ScopedDeploymentId
 func ParseScopedDeploymentID(input string) (*ScopedDeploymentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedDeploymentId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedDeploymentId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedDeploymentID(input string) (*ScopedDeploymentId, error) {
 // ParseScopedDeploymentIDInsensitively parses 'input' case-insensitively into a ScopedDeploymentId
 // note: this method should only be used for API response data and not user input
 func ParseScopedDeploymentIDInsensitively(input string) (*ScopedDeploymentId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedDeploymentId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedDeploymentId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

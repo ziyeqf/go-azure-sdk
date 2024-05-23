@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ManagedClusterVersionId{}
+func init() {
+	recaser.RegisterResourceId(&ManagedClusterVersionId{})
+}
+
+var _ resourceids.ResourceId = &ManagedClusterVersionId{}
 
 // ManagedClusterVersionId is a struct representing the Resource ID for a Managed Cluster Version
 type ManagedClusterVersionId struct {
@@ -30,7 +35,7 @@ func NewManagedClusterVersionID(subscriptionId string, locationName string, mana
 
 // ParseManagedClusterVersionID parses 'input' into a ManagedClusterVersionId
 func ParseManagedClusterVersionID(input string) (*ManagedClusterVersionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ManagedClusterVersionId{})
+	parser := resourceids.NewParserFromResourceIdType(&ManagedClusterVersionId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseManagedClusterVersionID(input string) (*ManagedClusterVersionId, error
 // ParseManagedClusterVersionIDInsensitively parses 'input' case-insensitively into a ManagedClusterVersionId
 // note: this method should only be used for API response data and not user input
 func ParseManagedClusterVersionIDInsensitively(input string) (*ManagedClusterVersionId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ManagedClusterVersionId{})
+	parser := resourceids.NewParserFromResourceIdType(&ManagedClusterVersionId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

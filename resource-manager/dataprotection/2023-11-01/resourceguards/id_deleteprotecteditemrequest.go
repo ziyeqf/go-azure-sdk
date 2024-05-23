@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = DeleteProtectedItemRequestId{}
+func init() {
+	recaser.RegisterResourceId(&DeleteProtectedItemRequestId{})
+}
+
+var _ resourceids.ResourceId = &DeleteProtectedItemRequestId{}
 
 // DeleteProtectedItemRequestId is a struct representing the Resource ID for a Delete Protected Item Request
 type DeleteProtectedItemRequestId struct {
@@ -32,7 +37,7 @@ func NewDeleteProtectedItemRequestID(subscriptionId string, resourceGroupName st
 
 // ParseDeleteProtectedItemRequestID parses 'input' into a DeleteProtectedItemRequestId
 func ParseDeleteProtectedItemRequestID(input string) (*DeleteProtectedItemRequestId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DeleteProtectedItemRequestId{})
+	parser := resourceids.NewParserFromResourceIdType(&DeleteProtectedItemRequestId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseDeleteProtectedItemRequestID(input string) (*DeleteProtectedItemReques
 // ParseDeleteProtectedItemRequestIDInsensitively parses 'input' case-insensitively into a DeleteProtectedItemRequestId
 // note: this method should only be used for API response data and not user input
 func ParseDeleteProtectedItemRequestIDInsensitively(input string) (*DeleteProtectedItemRequestId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DeleteProtectedItemRequestId{})
+	parser := resourceids.NewParserFromResourceIdType(&DeleteProtectedItemRequestId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

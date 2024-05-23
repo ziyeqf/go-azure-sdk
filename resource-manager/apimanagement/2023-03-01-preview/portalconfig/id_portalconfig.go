@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = PortalConfigId{}
+func init() {
+	recaser.RegisterResourceId(&PortalConfigId{})
+}
+
+var _ resourceids.ResourceId = &PortalConfigId{}
 
 // PortalConfigId is a struct representing the Resource ID for a Portal Config
 type PortalConfigId struct {
@@ -32,7 +37,7 @@ func NewPortalConfigID(subscriptionId string, resourceGroupName string, serviceN
 
 // ParsePortalConfigID parses 'input' into a PortalConfigId
 func ParsePortalConfigID(input string) (*PortalConfigId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PortalConfigId{})
+	parser := resourceids.NewParserFromResourceIdType(&PortalConfigId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParsePortalConfigID(input string) (*PortalConfigId, error) {
 // ParsePortalConfigIDInsensitively parses 'input' case-insensitively into a PortalConfigId
 // note: this method should only be used for API response data and not user input
 func ParsePortalConfigIDInsensitively(input string) (*PortalConfigId, error) {
-	parser := resourceids.NewParserFromResourceIdType(PortalConfigId{})
+	parser := resourceids.NewParserFromResourceIdType(&PortalConfigId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

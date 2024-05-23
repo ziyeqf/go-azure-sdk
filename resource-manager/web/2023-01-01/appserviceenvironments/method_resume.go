@@ -23,7 +23,8 @@ type ResumeOperationResponse struct {
 }
 
 type ResumeCompleteResult struct {
-	Items []Site
+	LatestHttpResponse *http.Response
+	Items              []Site
 }
 
 // Resume ...
@@ -52,15 +53,6 @@ func (c AppServiceEnvironmentsClient) Resume(ctx context.Context, id commonids.A
 	if err != nil {
 		return
 	}
-
-	var values struct {
-		Values *[]Site `json:"value"`
-	}
-	if err = resp.Unmarshal(&values); err != nil {
-		return
-	}
-
-	result.Model = values.Values
 
 	result.Poller, err = resourcemanager.PollerFromResponse(resp, c.Client)
 	if err != nil {

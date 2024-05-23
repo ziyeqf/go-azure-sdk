@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ConfigReferenceAppSettingId{}
+func init() {
+	recaser.RegisterResourceId(&ConfigReferenceAppSettingId{})
+}
+
+var _ resourceids.ResourceId = &ConfigReferenceAppSettingId{}
 
 // ConfigReferenceAppSettingId is a struct representing the Resource ID for a Config Reference App Setting
 type ConfigReferenceAppSettingId struct {
@@ -34,7 +39,7 @@ func NewConfigReferenceAppSettingID(subscriptionId string, resourceGroupName str
 
 // ParseConfigReferenceAppSettingID parses 'input' into a ConfigReferenceAppSettingId
 func ParseConfigReferenceAppSettingID(input string) (*ConfigReferenceAppSettingId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ConfigReferenceAppSettingId{})
+	parser := resourceids.NewParserFromResourceIdType(&ConfigReferenceAppSettingId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseConfigReferenceAppSettingID(input string) (*ConfigReferenceAppSettingI
 // ParseConfigReferenceAppSettingIDInsensitively parses 'input' case-insensitively into a ConfigReferenceAppSettingId
 // note: this method should only be used for API response data and not user input
 func ParseConfigReferenceAppSettingIDInsensitively(input string) (*ConfigReferenceAppSettingId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ConfigReferenceAppSettingId{})
+	parser := resourceids.NewParserFromResourceIdType(&ConfigReferenceAppSettingId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

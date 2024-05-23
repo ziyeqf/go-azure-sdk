@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = InvoiceId{}
+func init() {
+	recaser.RegisterResourceId(&InvoiceId{})
+}
+
+var _ resourceids.ResourceId = &InvoiceId{}
 
 // InvoiceId is a struct representing the Resource ID for a Invoice
 type InvoiceId struct {
@@ -30,7 +35,7 @@ func NewInvoiceID(billingAccountName string, billingProfileName string, invoiceN
 
 // ParseInvoiceID parses 'input' into a InvoiceId
 func ParseInvoiceID(input string) (*InvoiceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(InvoiceId{})
+	parser := resourceids.NewParserFromResourceIdType(&InvoiceId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -47,7 +52,7 @@ func ParseInvoiceID(input string) (*InvoiceId, error) {
 // ParseInvoiceIDInsensitively parses 'input' case-insensitively into a InvoiceId
 // note: this method should only be used for API response data and not user input
 func ParseInvoiceIDInsensitively(input string) (*InvoiceId, error) {
-	parser := resourceids.NewParserFromResourceIdType(InvoiceId{})
+	parser := resourceids.NewParserFromResourceIdType(&InvoiceId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

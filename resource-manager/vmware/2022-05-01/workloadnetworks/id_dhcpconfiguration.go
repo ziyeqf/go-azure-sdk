@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = DhcpConfigurationId{}
+func init() {
+	recaser.RegisterResourceId(&DhcpConfigurationId{})
+}
+
+var _ resourceids.ResourceId = &DhcpConfigurationId{}
 
 // DhcpConfigurationId is a struct representing the Resource ID for a Dhcp Configuration
 type DhcpConfigurationId struct {
@@ -32,7 +37,7 @@ func NewDhcpConfigurationID(subscriptionId string, resourceGroupName string, pri
 
 // ParseDhcpConfigurationID parses 'input' into a DhcpConfigurationId
 func ParseDhcpConfigurationID(input string) (*DhcpConfigurationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DhcpConfigurationId{})
+	parser := resourceids.NewParserFromResourceIdType(&DhcpConfigurationId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseDhcpConfigurationID(input string) (*DhcpConfigurationId, error) {
 // ParseDhcpConfigurationIDInsensitively parses 'input' case-insensitively into a DhcpConfigurationId
 // note: this method should only be used for API response data and not user input
 func ParseDhcpConfigurationIDInsensitively(input string) (*DhcpConfigurationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(DhcpConfigurationId{})
+	parser := resourceids.NewParserFromResourceIdType(&DhcpConfigurationId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

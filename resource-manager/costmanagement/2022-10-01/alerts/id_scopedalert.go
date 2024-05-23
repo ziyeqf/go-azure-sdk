@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = ScopedAlertId{}
+func init() {
+	recaser.RegisterResourceId(&ScopedAlertId{})
+}
+
+var _ resourceids.ResourceId = &ScopedAlertId{}
 
 // ScopedAlertId is a struct representing the Resource ID for a Scoped Alert
 type ScopedAlertId struct {
@@ -28,7 +33,7 @@ func NewScopedAlertID(scope string, alertId string) ScopedAlertId {
 
 // ParseScopedAlertID parses 'input' into a ScopedAlertId
 func ParseScopedAlertID(input string) (*ScopedAlertId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedAlertId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedAlertId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -45,7 +50,7 @@ func ParseScopedAlertID(input string) (*ScopedAlertId, error) {
 // ParseScopedAlertIDInsensitively parses 'input' case-insensitively into a ScopedAlertId
 // note: this method should only be used for API response data and not user input
 func ParseScopedAlertIDInsensitively(input string) (*ScopedAlertId, error) {
-	parser := resourceids.NewParserFromResourceIdType(ScopedAlertId{})
+	parser := resourceids.NewParserFromResourceIdType(&ScopedAlertId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

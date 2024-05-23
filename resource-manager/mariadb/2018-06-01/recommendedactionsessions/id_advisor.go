@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = AdvisorId{}
+func init() {
+	recaser.RegisterResourceId(&AdvisorId{})
+}
+
+var _ resourceids.ResourceId = &AdvisorId{}
 
 // AdvisorId is a struct representing the Resource ID for a Advisor
 type AdvisorId struct {
@@ -32,7 +37,7 @@ func NewAdvisorID(subscriptionId string, resourceGroupName string, serverName st
 
 // ParseAdvisorID parses 'input' into a AdvisorId
 func ParseAdvisorID(input string) (*AdvisorId, error) {
-	parser := resourceids.NewParserFromResourceIdType(AdvisorId{})
+	parser := resourceids.NewParserFromResourceIdType(&AdvisorId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseAdvisorID(input string) (*AdvisorId, error) {
 // ParseAdvisorIDInsensitively parses 'input' case-insensitively into a AdvisorId
 // note: this method should only be used for API response data and not user input
 func ParseAdvisorIDInsensitively(input string) (*AdvisorId, error) {
-	parser := resourceids.NewParserFromResourceIdType(AdvisorId{})
+	parser := resourceids.NewParserFromResourceIdType(&AdvisorId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = TopQueryStatisticId{}
+func init() {
+	recaser.RegisterResourceId(&TopQueryStatisticId{})
+}
+
+var _ resourceids.ResourceId = &TopQueryStatisticId{}
 
 // TopQueryStatisticId is a struct representing the Resource ID for a Top Query Statistic
 type TopQueryStatisticId struct {
@@ -32,7 +37,7 @@ func NewTopQueryStatisticID(subscriptionId string, resourceGroupName string, ser
 
 // ParseTopQueryStatisticID parses 'input' into a TopQueryStatisticId
 func ParseTopQueryStatisticID(input string) (*TopQueryStatisticId, error) {
-	parser := resourceids.NewParserFromResourceIdType(TopQueryStatisticId{})
+	parser := resourceids.NewParserFromResourceIdType(&TopQueryStatisticId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -49,7 +54,7 @@ func ParseTopQueryStatisticID(input string) (*TopQueryStatisticId, error) {
 // ParseTopQueryStatisticIDInsensitively parses 'input' case-insensitively into a TopQueryStatisticId
 // note: this method should only be used for API response data and not user input
 func ParseTopQueryStatisticIDInsensitively(input string) (*TopQueryStatisticId, error) {
-	parser := resourceids.NewParserFromResourceIdType(TopQueryStatisticId{})
+	parser := resourceids.NewParserFromResourceIdType(&TopQueryStatisticId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)

@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hashicorp/go-azure-helpers/resourcemanager/recaser"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourceids"
 )
 
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See NOTICE.txt in the project root for license information.
 
-var _ resourceids.ResourceId = BookmarkRelationId{}
+func init() {
+	recaser.RegisterResourceId(&BookmarkRelationId{})
+}
+
+var _ resourceids.ResourceId = &BookmarkRelationId{}
 
 // BookmarkRelationId is a struct representing the Resource ID for a Bookmark Relation
 type BookmarkRelationId struct {
@@ -34,7 +39,7 @@ func NewBookmarkRelationID(subscriptionId string, resourceGroupName string, work
 
 // ParseBookmarkRelationID parses 'input' into a BookmarkRelationId
 func ParseBookmarkRelationID(input string) (*BookmarkRelationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BookmarkRelationId{})
+	parser := resourceids.NewParserFromResourceIdType(&BookmarkRelationId{})
 	parsed, err := parser.Parse(input, false)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
@@ -51,7 +56,7 @@ func ParseBookmarkRelationID(input string) (*BookmarkRelationId, error) {
 // ParseBookmarkRelationIDInsensitively parses 'input' case-insensitively into a BookmarkRelationId
 // note: this method should only be used for API response data and not user input
 func ParseBookmarkRelationIDInsensitively(input string) (*BookmarkRelationId, error) {
-	parser := resourceids.NewParserFromResourceIdType(BookmarkRelationId{})
+	parser := resourceids.NewParserFromResourceIdType(&BookmarkRelationId{})
 	parsed, err := parser.Parse(input, true)
 	if err != nil {
 		return nil, fmt.Errorf("parsing %q: %+v", input, err)
