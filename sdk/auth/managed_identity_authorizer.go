@@ -182,7 +182,7 @@ func azureMetadata(ctx context.Context, url string, headers map[string][]string)
 
 	if headers != nil {
 		if _, ok := headers["Metadata"]; !ok {
-			headers["Metadata"] = []string{"string"}
+			headers["Metadata"] = []string{"true"}
 		}
 		req.Header = headers
 	} else {
