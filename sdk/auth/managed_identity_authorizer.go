@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"maps"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -180,16 +181,11 @@ func azureMetadata(ctx context.Context, url string, headers map[string][]string)
 		return
 	}
 
-	if headers != nil {
-		if _, ok := headers["Metadata"]; !ok {
-			headers["Metadata"] = []string{"true"}
-		}
-		req.Header = headers
-	} else {
-		req.Header = http.Header{
-			"Metadata": []string{"true"},
-		}
+	req.Header = http.Header{
+		"Metadata": []string{"true"},
 	}
+
+	maps.Copy(req.Header, headers)
 
 	var resp *http.Response
 	log.Printf("[DEBUG] Performing %s Request to %q", req.Method, url)
